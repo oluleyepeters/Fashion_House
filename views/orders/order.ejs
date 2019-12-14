@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Herbei | Order</title>	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie-edge">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bootstrap4.css">
+	<link rel="stylesheet" href="/css/orders.css">
+<!--	Safari Support-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="HERBEI_FASHION">
+	<link rel="apple-touch-icon" href="/images/icons/icon-72x72.png" sizes="72x72">
+	<link rel="apple-touch-icon" href="/images/icons/icon-96x96.png" sizes="96x96">
+	<link rel="apple-touch-icon" href="/images/icons/icon-128x128.png" sizes="128x128">
+	<link rel="apple-touch-icon" href="/images/icons/icon-144x144.png" sizes="144x144">
+	<link rel="apple-touch-icon" href="/images/icons/icon-152x152.png" sizes="152x152">
+	<link rel="apple-touch-icon" href="/images/icons/icon-192x192.png" sizes="192x192">
+	<link rel="apple-touch-icon" href="/images/icons/icon-384x384.png" sizes="384x384">
+	<link rel="apple-touch-icon" href="/images/icons/icon-512x512.png" sizes="512x512">	
+<!--	Internet Explorer Support-->
+	<meta name="msapplication-TileImage" content="/images/icons/icon-144x144.png" sizes="144x144">
+	<meta name="msapplication-Tile-Color" content="#fff">
+	<meta name="theme-color" content="#2D91F8">
+</head>
+<body>
+	<nav class="nav">
+		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
+		<ul>
+			<% if(!user){ %>
+				<li><a href="/users/login">Login</a></li>
+				<li><a href="/register">Register</a></li>
+			<% } else if(user.type === "User") { %> 
+				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="#" class="cart-btn">Cart</a></li>
+				<li><a href="/orders/order">Orders</a></li>		
+			<%} else {%>
+				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/clothe/add">Add</a></li>			
+				<li><a href="/orders/order">Orders</a></li>
+				<li><a href="#" class="cart-btn">Cart</a></li>	
+			<% } %>
+		</ul>						
+		<ul>
+			<% if(user) { %>
+				<li> <a href="/users/logout">Logout</a></li>	<% } %>
+		</ul>				
+	</nav>
+	<main> 
+		<section id="all-clothes">
+			<div class="container">
+				<div id="clothes-container" class="p2">
+					<% order.cart.items.forEach(function(order){ %>
+						<article class="card">
+							<img src="<%=order.back_view %>" class="p1" alt="info"/>
+							<div class="category-box">
+								<div class="category-left">
+									<div class="category"><a href=""><%= order.name %></a></div>	
+								</div>
+								<div class="category-left">
+									<div class="category"><a href="">Category</a></div></div>
+								<div class="category"><a href="/clothes/<%=order.id%>/view">View</a></div>
+							</div>
+						</article>
+					<% }) %>
+				</div>	
+			</div>
+		</section>
+	</main>	
+	<footer id="footer" class="sticky">
+		<div class="container">
+			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
+		</div>
+	</footer>
+		<% if(user.cart.items.length > 0){ %>
+			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
+				<div class="cart-header">
+					<h3 class="text-center">My Cart</h3>
+					<span class="close">&times;</span>
+				</div>
+				<% user.cart.items.forEach(function(item , index){ %>
+					<article class="cart-card">
+						<div class="cart-image">
+							<img src="<%=item.front_view %>" class="p1" alt="info"></div>
+						<div class="category-left cart-box">
+							<p class="category">Durojaye Peter</p>					
+							<p class="category"><%= item.price %></p>				
+						</div>				
+					</article>
+					<input type="text" class="hidden" name="items[<%=index%>][name]" value="<%= item.name %>">
+					<input type="text" class="hidden" name="items[<%=index%>][price]" value="<%= item.price %>">
+					<input type="text" class="hidden" name="items[<%=index%>][id]" value="<%= item.id %>">
+					<input type="text" class="hidden" name="items[<%=index%>][front_view]" value="<%= item.front_view %>">
+					<input type="text" class="hidden" name="items[<%=index%>][side_view]" value="<%= item.side_view %>">
+					<input type="text" class="hidden" name="items[<%=index%>][back_view]" value="<%= item.back_view %>">
+				<% }) %>	
+				<div class="payment-proceed">
+					<button type="submit" class="category">Place Order</button>
+					<p class="category"><%= user.cart.items[0].price %></p>
+				</div>
+			</form>
+		<% } else {%>
+			<div class="cart payment-container">
+				<div class="cart-header">
+					<h3 class="text-center">Your Cart is Empty</h3>
+					<span class="close">&times;</span>
+				</div>
+			</div>
+		<% } %>
+	<script src="/javascript/cart.js"></script>		
+</body>
+</html>

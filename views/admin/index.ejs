@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Herbei | All Orders</title>	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie-edge">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bootstrap4.css">
+	<link rel="stylesheet" href="/css/orders.css">
+<!--	<link rel="stylesheet" href="/css/cart.css">	-->
+
+</head>
+<body>
+	<nav class="nav">
+		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
+		<ul>
+			<% if(!user){ %>
+				<li><a href="/users/login">Login</a></li>
+				<li><a href="/register">Register</a></li>
+			<% } else if(user.type === "User") { %> 
+				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="#" class="cart-btn">Cart</a></li>
+				<li><a href="/users/myOrders">Orders</a></li>
+			<%} else {%>
+				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/clothe/add">Add</a></li>			
+				<li><a href="/users/myOrders">Orders</a></li>
+				<li><a href="#" class="cart-btn">Cart</a></li>		
+			<% } %>
+		</ul>						
+		<ul>
+			<% if(user.name !== "User") { %> 
+				<li> <a href="/users/logout">Logout</a></li>
+			<% } %>								
+		</ul>		
+	</nav>
+	<main>
+		<div class="container">
+			
+		</div>	
+		<section id="all-clothes">
+			<div class="container">
+				<div id="order-container" class="p2">
+					<% orders.forEach(function(order){ %>
+						<div class="order">
+							<p>
+								<%= order.date.toDateString() %>
+							</p>
+							<div class="category"><a href="/orders/allorder/<%=order._id%>">View Order</a></div>
+						</div>					
+					<% }) %>
+				</div>	
+			</div>
+		</section>
+	</main>	
+	<footer id="footer">
+		<div class="container">
+			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
+		</div>
+	</footer>
+		<% if(user.cart.items.length > 0){ %>
+			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
+				<div class="cart-header">
+					<h3 class="text-center">My Cart</h3>
+					<span class="close">&times;</span>
+				</div>			
+				<% user.cart.items.forEach(function(item , index){ %>
+					<article class="cart-card">
+						<div class="cart-image">
+							<img src="<%=item.front_view %>" class="p1" alt="info"></div>
+						<div class="category-left cart-box">
+							<p class="category">Durojaye Peter</p>					
+							<p class="category"><%= item.price %></p>				
+						</div>				
+					</article>
+					<input type="text" class="hidden" name="items[<%=index%>][name]" value="<%= item.name %>">
+					<input type="text" class="hidden" name="items[<%=index%>][price]" value="<%= item.price %>">
+					<input type="text" class="hidden" name="items[<%=index%>][id]" value="<%= item.id %>">
+					<input type="text" class="hidden" name="items[<%=index%>][front_view]" value="<%= item.front_view %>">
+					<input type="text" class="hidden" name="items[<%=index%>][side_view]" value="<%= item.side_view %>">
+					<input type="text" class="hidden" name="items[<%=index%>][back_view]" value="<%= item.back_view %>">
+				<% }) %>	
+				<div class="payment-proceed">
+					<button type="submit" class="category">Place Order</button>
+					<p class="category"><%= user.cart.items[0].price %></p>
+				</div>
+			</form>
+		<% } else {%>
+			<div class="cart payment-container">
+				<div class="cart-header">
+					<h3 class="text-center">Your Cart is Empty</h3>
+					<span class="close">&times;</span>
+				</div>
+			</div>
+		<% } %>	
+	<script src="/javascript/cart.js"></script>
+</body>
+</html>

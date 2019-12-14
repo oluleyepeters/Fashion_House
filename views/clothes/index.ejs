@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Herbei | All Clothes</title>	
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie-edge">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bootstrap4.css">
+	<link rel="stylesheet" href="/css/clothes.css">
+</head>
+<body>
+	<nav class="nav">
+		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
+		<ul>
+			<% if(user && user.type === "User"){ %>
+				<li><a href="#"><%=user.name %></a></li>
+				<li><a class="cart-btn">Cart</a></li>
+				<li><a href="/users/myOrders">Orders</a></li>			
+				<li> <a href="/users/logout">Logout</a></li>
+			<% } else if(user && user.type === " ") { %> 
+				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/users/myOrders">Orders</a></li>
+				<li><a href="#" class="cart-btn">Cart</a></li>		
+				<li> <a href="/users/logout">Logout</a></li>			
+			<%} else if(!user){%>			
+				<li><a href="/users/login">Login</a></li>
+				<li><a href="/register">Register</a></li>
+			<% } %>			
+		</ul>		
+	</nav>
+	<main>
+		<div class="container">
+		  <form>
+                <input class="form-control" type="text" name="" id="searchInput">
+                <input type="submit" class="category" value="Submit" id="btn1" aria-describedby="descriptionGetStarted"/>
+                <p style="display: none" id="descriptionGetStarted">Click on this button to search for your favorite cloth</p> 
+          </form>
+			
+		</div> 
+<!--
+          <div>
+			<p>Price</p>
+			<label for="">10000: <input type="checkbox" name="price" value="10000"></label> <br>
+			<label for="">20000: <input type="checkbox" name="price" value="20000"></label> <br>
+			<label for="">30000: <input type="checkbox" name="price" value="30000"></label> <br>
+			
+			<p>Category</p>
+			<label for="">Suits: <input type="checkbox" name="price" value="Suit"></label> <br>
+			<label for="">Ankara: <input type="checkbox" name="price" value="Ankara"></label> <br>
+			<label for="">Denim: <input type="checkbox" name="price" value="Denim"></label> <br>	
+		</div>	
+-->
+		<section id="all-clothes">
+			<div class="container">
+				<div id="clothes-container" class="p2">
+				
+				</div>	
+			</div>
+		</section>
+	</main>	
+	<footer id="footer" class="sticky">
+		<div class="container">
+			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
+		</div>
+	</footer>
+		<% if(user && user.cart.items.length > 0){ %>
+			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
+				<div class="cart-header">
+					<h3 class="text-center">My Cart</h3>
+					<span class="close">&times;</span>
+				</div>
+				<% user.cart.items.forEach(function(item , index){ %>
+					<article class="cart-card">
+						<div class="cart-image">
+							<img src="<%=item.front_view %>" class="p1" alt="info"></div>
+						<div class="category-left cart-box">
+							<p class="category">Durojaye Peter</p>					
+							<p class="category"><%= item.price %></p>				
+						</div>				
+					</article>
+					<input type="text" class="hidden" name="items[<%=index%>][name]" value="<%= item.name %>">
+					<input type="text" class="hidden" name="items[<%=index%>][price]" value="<%= item.price %>">
+					<input type="text" class="hidden" name="items[<%=index%>][id]" value="<%= item.id %>">
+					<input type="text" class="hidden" name="items[<%=index%>][front_view]" value="<%= item.front_view %>">
+					<input type="text" class="hidden" name="items[<%=index%>][side_view]" value="<%= item.side_view %>">
+					<input type="text" class="hidden" name="items[<%=index%>][back_view]" value="<%= item.back_view %>">
+				<% }) %>	
+				<div class="payment-proceed">
+					<button type="submit" class="category">Place Order</button>
+					<p class="category"><%= user.cart.items[0].price %></p>
+				</div>
+			</form>
+		<% } else {%>
+			<div class="cart payment-container">
+				<div class="cart-header">
+					<h3 class="text-center">Your Cart is Empty</h3>
+					<span class="close">&times;</span>
+				</div>
+			</div>		
+		<% } %>
+	<script src="/javascript/search.js"></script>					
+	<script src="/javascript/jquery-3.3.1.min.js"></script>
+	<script src="/javascript/loadClothes.js"></script>		
+
+</body>
+</html>

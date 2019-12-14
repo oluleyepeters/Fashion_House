@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie-edge">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="/css/bootstrap4.css">
+	<link rel="stylesheet" href="/css/login.css">
+	<title>Herbei | Edit Cloth</title>
+</head>
+<body>
+	<nav class="nav">
+		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
+		<ul>
+			<li><a href="/login">Login</a></li>
+			<li><a href="/register">Register</a></li>
+			<li><a href="#what">What <span class="hidden">We Do</span></a></li>
+			<li><a href="#contact">Contact <span class="hidden">Us</span></a></li>
+		</ul>
+	</nav>
+	<main>
+		<div class="container">
+			<div id="form-box">
+				<h3 class="text-center">Edit Cloth</h3>
+					<form action="/" method="post">
+						<div class="form-bot">
+							<label for="name">Name</label>
+							<input type="text" name="text" id="names" class="form-control" required>
+						</div>
+						<div class="form-bot">
+							<label for="password">Price</label>
+							<input type="password" name="email" id="password" class="form-control" required>
+						</div>
+						<div class="form-bot">
+							<label for="front_view">Front View</label>
+							<input type="file" name="front_view" id="front_view" required>
+						</div>
+						<div class="form-bot">
+							<label for="back_view">Back View</label>
+							<input type="file" name="back_view" id="back_view" required>
+						</div>
+						<div class="form-bot">
+							<label for="side_view">Side View</label>
+							<input type="file" name="side_view" id="side_view" required>
+						</div>					
+					<button type="submit" class="submit">Upload</button>				
+				</form>
+			</div>
+		</div>
+	</main>
+	<footer id="footer">
+		<div class="container">
+			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
+		</div>
+	</footer>
+</body>
+</html>
