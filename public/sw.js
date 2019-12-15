@@ -1,5 +1,34 @@
+// Special syntax that allows importation of scripts
+importScripts('/javascript/idb.js');
+importScripts('/javascript/utility.js')
+
 const pwaCache = 'pwa_Cache-1';
 const dynamicCache = 'pwa_Dynamic_cache-1';
+const staticFiles=[
+				'/',
+				'/offline',
+				'/javascript/idb.js',
+				'/javascript/jquery-3.3.1.min.js',
+				'/javascript/app.js',
+				'/javascript/addtocart.js',
+				'/javascript/cart.js',
+				'/javascript/loadClothes.js',
+				'/css/add.css',
+				'/css/cart.css',
+				'/css/clothes.css',
+				'/css/clothes_show.css',
+				'/css/headers.css',
+				'/css/orders.css',
+				'/images/showcase.jpg',
+				'/images/icons/icon-72x72.png',
+				'/images/icons/icon-96x96.png',
+				'/images/icons/icon-128x128.png',
+				'/images/icons/icon-144x144.png',
+				'/images/icons/icon-152x152.png',
+				'/images/icons/icon-192x192.png',
+				'/images/icons/icon-384x384.png',
+				'/images/icons/icon-512x512.png'				
+			]
 
 function trimCache(cacheName, maxItems){
 	cache.open(cacheName)
@@ -21,30 +50,7 @@ self.addEventListener('install', (e) => {
 		caches.open(pwaCache)
 		.then((cache) => {
 			console.log('[Service Worker] caching assets');			
-			cache.addAll([
-				'/',
-				'/offline',
-				'/javascript/jquery-3.3.1.min.js',
-				'/javascript/app.js',
-				'/javascript/addtocart.js',
-				'/javascript/cart.js',
-				'/javascript/loadClothes.js',
-				'/css/add.css',
-				'/css/cart.css',
-				'/css/clothes.css',
-				'/css/clothes_show.css',
-				'/css/headers.css',
-				'/css/orders.css',
-				'/images/showcase.jpg',
-				'/images/icons/icon-72x72.png',
-				'/images/icons/icon-96x96.png',
-				'/images/icons/icon-128x128.png',
-				'/images/icons/icon-144x144.png',
-				'/images/icons/icon-152x152.png',
-				'/images/icons/icon-192x192.png',
-				'/images/icons/icon-384x384.png',
-				'/images/icons/icon-512x512.png'				
-			])
+			cache.addAll(staticFiles);
 		})
 	)
 });
@@ -64,7 +70,81 @@ self.addEventListener('activate', (e) => {
 	return self.clients.claim();
 });
 
+function IsInArray(string, Array){
+	for(var i = 0; i < Array.length; i++){
+		if(Array[i] === string){
+			return true;
+		}
+	}
+}
+
+//Cache and Network
 //Events emitted any time a page, item is fetched
+ self.addEventListener('fetch', (e) => {
+	var url = `http://localhost:8080/clothes/searchClothes`;
+	if(e.request.url.includes(url)){
+ 		console.log('Fetched.....' , e)
+ 		e.respondWith(
+			fetch(e.request)
+			.then(function(res){
+//			trimCache(dynamicCache, 30)
+				// Clone the response
+				var clonedRes = res.clone();
+//				clear the data
+				clearAlldata('clothes')
+				.then(() => {
+				return clonedRes.json()
+				})
+				.then(function(data){
+					for(var key in data){
+//						we should clear database before rewriting because if we dont clear it and we delete data dynamically, it will not reflect on our front end application
+						writeData('clothes',data[key]);
+					}
+				})
+				return res;
+			})
+		);
+	}else if(IsInArray( e.request.url, staticFiles)) {
+			e.respondWith(
+				caches.match(e.request)
+		);		
+	}else{
+		//Events emitted any time a page, item is fetched
+		e.respondWith(
+//		Checks if the request is an existing key in the cache 
+			caches.match(e.request)
+				.then((response) => {
+				if(response){
+//					if it is return the response
+					return response;
+				}else{
+//					if it does not contain it it sends the new request
+				return fetch(e.request)
+				.then((res) => {
+//					storing responses dynamically
+					return caches.open(dynamicCache)
+					.then((cache) => {
+//						we are to store a clone because the response will be consumed
+						cache.put(e.request.url, res.clone() );
+						return res;
+					})
+				}).catch(err => {
+					return caches.open(pwaCache)
+					.then((cache) => {
+//						returning file based on file requested for
+						if(event.request.headers.get.includes(`text/html`)){
+							return cache.match('/offline')
+						}
+					})
+				})
+			}		
+		})
+	);
+		
+	}
+})
+
+ //Events emitted any time a page, item is fetched
 // self.addEventListener('fetch', (e) => {
 // 	console.log('Fetched.....' , e)
 // 	e.respondWith(
@@ -147,92 +227,3 @@ self.addEventListener('activate', (e) => {
 //		})
 //	);
 //})
-
-function IsInArray(string, Array){
-	for(var i = 0; i < Array.length; i++){
-		if(Array[i] === string){
-			return true;
-		}
-	}
-}
-
-//Cache and Network
-//Events emitted any time a page, item is fetched
- self.addEventListener('fetch', (e) => {
-	var url = `http://localhost:8080/clothes/clothes/${search.value}`;
-	var staticAssets = [
-				'/',
-				'/offline',
-				'/javascript/jquery-3.3.1.min.js',
-				'/javascript/app.js',
-				'/javascript/addtocart.js',
-				'/javascript/cart.js',
-				'/javascript/loadClothes.js',
-				'/css/add.css',
-				'/css/cart.css',
-				'/css/clothes.css',
-				'/css/clothes_show.css',
-				'/css/headers.css',
-				'/css/orders.css',
-				'/images/showcase.jpg',
-				'/images/icons/icon-72x72.png',
-				'/images/icons/icon-96x96.png',
-				'/images/icons/icon-128x128.png',
-				'/images/icons/icon-144x144.png',
-				'/images/icons/icon-152x152.png',
-				'/images/icons/icon-192x192.png',
-				'/images/icons/icon-384x384.png',
-				'/images/icons/icon-512x512.png'					
-	] 
-	if(e.request.url.indexOf(url) > -1){
- 		console.log('Fetched.....' , e)
- 		e.respondWith(
-			caches.open(dynamicCache)
-			.then((cache) => {
-				return fetch(e.request)
-				.then(function(res){
-//					trimCache(dynamicCache, 30)
-					cache.put(e.request,res.clone());
-					return res;
-				})
-			})
-		);
-	}else if(event.request.url, staticAssets) {
-			e.respondWith(
-				caches.match(e.request)
-		);		
-	}else{
-		//Events emitted any time a page, item is fetched
-		e.respondWith(
-//		Checks if the request is an existing key in the cache 
-			caches.match(e.request)
-				.then((response) => {
-				if(response){
-//					if it is return the response
-					return response;
-				}else{
-//					if it does not contain it it sends the new request
-				return fetch(e.request)
-				.then((res) => {
-//					storing responses dynamically
-					return caches.open(dynamicCache)
-					.then((cache) => {
-//						we are to store a clone because the response will be consumed
-						cache.put(e.request.url, res.clone() );
-						return res;
-					})
-				}).catch(err => {
-					return caches.open(pwaCache)
-					.then((cache) => {
-//						returning file based on file requested for
-						if(event.request.headers.get.includes(`text/html`)){
-							return cache.match('/offline')
-						}
-					})
-				})
-			}		
-		})
-	);
-		
-	}
-})

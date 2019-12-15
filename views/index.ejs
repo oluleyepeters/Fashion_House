@@ -67,6 +67,7 @@
 			<div id="contact">
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur veniam, sed, facere blanditiis porro optio cum, nobis reprehenderit esse magni, maiores ullam quas! Consectetur nisi rem itaque. Vel, accusamus provident.
 			</div>
+			<button class="add">Add</button>
 		</section>
 	</main>
 	<footer id="footer">
@@ -110,7 +111,11 @@
 			</div>
 		<% } %>
 	<script src="/javascript/jquery-3.3.1.min.js"></script>	
-	<script src="/javascript/app.js"></script>			
-	<!-- <script src="/javascript/cart.js"></script> -->
+
+	<script src="/javascript/app.js"></script>	
+	<script type="text/javascript" src="/javascript/idb.js"></script>		
+	<% if(user) {%>
+		<script src="/javascript/cart.js"></script>
+	<% } %>
 </body>
 </html>

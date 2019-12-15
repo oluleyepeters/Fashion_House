@@ -112,7 +112,7 @@ router.delete('/:id', (req,res) => {
 
 //Searching for clothes
 //By name
-router.get('/clothes/:name', (req,res) => {
+router.get('/searchClothes/:name', (req,res) => {
 	db.Cloth.find({'name': req.params.name})
 	.then(clothes => {
 		res.json(clothes)

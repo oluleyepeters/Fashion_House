@@ -2,11 +2,10 @@ var search = document.querySelector('#searchInput');
 var searchBtn = document.querySelector('.category');
 
 searchBtn.addEventListener('click', function(e){	
-	var url = `http://localhost:8080/clothes/clothes/${search.value}`;	
+	var url = `http://localhost:8080/clothes/searchClothes/${search.value}`;	
 	var networkDataReceived = false;
-	
+	document.querySelector('#clothes-container').innerHTML= ''		
 	fetch(url)
-	document.querySelector('#clothes-container').innerHTML= ''	
 		.then(res => {
 			return res.json()
 		})
@@ -33,19 +32,14 @@ searchBtn.addEventListener('click', function(e){
 	
 	
 //	cache then network strategy
-	if('caches' in window){
-		caches.match(url)
-			.then(function(response){
-				if(response){
-					document.querySelector('#clothes-container').innerHTML= ''	
-					return response.json();
-				}	
-			}).then(function(data){
-				console.log('from cache',data)
+	if('indexedDB' in window){
+		readAllData('clothes')
+			.then(function(data){
 				if(!networkDataReceived){
-				let allMovies = '';
-				data.forEach((cloth) => {
-				allMovies += `<article class="card">
+					console.log('From Cache', data);
+					let allMovies = '';
+					data.forEach((cloth) => {
+					allMovies += `<article class="card">
 								<img src="${cloth.back_view}" class="p1" alt="info"/>
 									<div class="category-box">
 										<div class="category-left">
@@ -57,11 +51,10 @@ searchBtn.addEventListener('click', function(e){
 								<div class="category"><a href="/clothes/${cloth._id}/view">View</a></div>
 							</div>
 						</article>`
-				})
-			document.querySelector('#clothes-container').innerHTML = allMovies;	
-			}
-		})
-		.catch(err => console.log)	
+					})
+				document.querySelector('#clothes-container').innerHTML = allMovies;	
+				}
+			})
 	}
 	e.preventDefault();	
 });
