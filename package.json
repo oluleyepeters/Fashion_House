@@ -4,7 +4,8 @@
   "description": "Progressive web app for a fashion designer",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+	"web-push":"web-push"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
     "nodemon": "^2.0.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "urlsafe-base64": "^1.0.0"
+    "urlsafe-base64": "^1.0.0",
+    "web-push": "^3.4.1"
   }
 }

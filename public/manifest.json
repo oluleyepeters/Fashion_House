@@ -44,6 +44,7 @@
 		}		
 	],
 	"start_url" : "/",
+	"gcm_sender_id" : "526327086140",
 	"display": "standalone",
 	"theme_color": "#2D91F8",
 	"orientation":"portrait-primary",

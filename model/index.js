@@ -10,3 +10,5 @@ module.exports.User = require('./User.js');
 module.exports.Cloth = require('./Cloth.js');
 
 module.exports.Orders = require('./Orders.js');
+
+module.exports.Subscriptions = require('./Subscription.js');

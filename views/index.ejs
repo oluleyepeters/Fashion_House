@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="/css/bootstrap4.css">
 	<link rel="stylesheet" href="/css/headers.css">
-	<link rel="manifest" href="/manifest/manifest.json">
+	<link rel="manifest" href="/manifest.json">
 <!--	Safari Support-->
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -38,12 +38,14 @@
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a class="cart-btn">Cart</a></li>
-				<li><a href="/users/myOrders">Orders</a></li>			<li> <a href="/users/logout">Logout</a></li>
+				<li><a href="/users/myOrders">Orders</a></li>		<li> <a class="enable">Enable Notification</a></li>
+				<li> <a href="/users/logout">Logout</a></li>
 			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>		
+				<li><a href="#" class="cart-btn">Cart</a></li>
+				<li> <a class="enable">Enable Notification</a></li>		
 				<li> <a href="/users/logout">Logout</a></li>
 			<% } %>			
 <!--			<li><a href="#what">What <span class="hidden">We Do</span></a></li>-->
@@ -111,7 +113,6 @@
 			</div>
 		<% } %>
 	<script src="/javascript/jquery-3.3.1.min.js"></script>	
-
 	<script src="/javascript/app.js"></script>	
 	<script type="text/javascript" src="/javascript/idb.js"></script>		
 	<% if(user) {%>

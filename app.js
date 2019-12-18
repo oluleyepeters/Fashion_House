@@ -7,6 +7,7 @@ const passport = require('passport')
 const flash = require('connect-flash');
 //const multer = require('multer');
 const session = require('express-session');
+const webpush = require('web-push')
 
 const app = express();
 
@@ -15,11 +16,22 @@ require('./config/passport');
 
 const keys = require('./config/keys');
 
+//setting up web push
+const publicVapid = keys.public_vapid_Key;
+const privateVapid = keys.private_vapid_key;
+webpush.setVapidDetails(
+	'mailto: oluleyepeters@gmail.com',
+	publicVapid,
+	privateVapid
+)
+
 mongoose.promise = global.Promise;
 
 mongoose.connect(keys.mongoURI)
 .then(() => console.log('MongoDB Connected'))
 .catch(err => console.log)
+
+const db = require('./model')
 
 //ejs middleware
 app.set('view engine', 'ejs')
@@ -68,6 +80,19 @@ app.get('/', (req, res)=>{
 app.get('/offline', (req, res)=>{
 	res.render('offline')
 });
+
+app.post('/subscribe', (req,res) => {
+	new db.Subscriptions(req.body)
+	.save()
+	.then(sub => console.log)
+	.catch(err => console.log(err))
+})
+
+app.get('/subscribe', (req,res) => {
+	db.Subscriptions.find()
+	.then(sub => res.json(sub))
+	.catch(err => console.log(err))
+})
 
 app.use('/users', users);
 app.use('/clothes', clothes);

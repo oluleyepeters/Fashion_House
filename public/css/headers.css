@@ -42,6 +42,10 @@ input{
 	border-radius: 5px;
 }
 
+.enable{
+	display: none;
+}
+
 /*Navbar*/
 nav{
 	position: sticky;

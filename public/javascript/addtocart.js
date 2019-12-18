@@ -8,7 +8,7 @@ const newCartItem = {
 }
 
 const userid = document.querySelector('#category').dataset.user;
-
+ 
 const getResult = function(e){
 	fetch(`http://localhost:8080/users/${userid}/addtoCart`, {
      method: 'POST',

@@ -18,19 +18,18 @@
 			<% if(!user){ %>
 				<li><a href="/users/login">Login</a></li>
 				<li><a href="/register">Register</a></li>
-			<% } else if(user.name === "User") { %> 
+			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="/orders/order">Orders</a></li>		
+				<li><a class="cart-btn">Cart</a></li>
+				<li><a href="/users/myOrders">Orders</a></li>			<li> <a href="/users/logout">Logout</a></li>
 			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
-			<% } %>
-		</ul>						
-		<ul>
-			<% if(user.name !== "User") { %> 
+				<li><a href="/users/myOrders">Orders</a></li>
+				<li><a href="#" class="cart-btn">Cart</a></li>		
 				<li> <a href="/users/logout">Logout</a></li>
-			<% } %>								
-		</ul>			
+			<% } %>			
+		</ul>		
 	</nav>
 	<main>
 		<div class="container">
@@ -53,8 +52,14 @@
 					<input type="text" value="Side View">										
 				</div>
 				<div class="form-box">	
-					<label for="multiple_">Upload Multiple Images</label>
-					<input type="file" name="photos" id="multiple_" multiple required>
+<!-- 					<label for="multiple_">Upload Multiple Images</label>-->
+<!--					<input type="file" name=s"photos" id="multiple_" multiple required> -->
+					<label for="front">Upload Front View</label>
+					<input type="file" name="photos" id="front" required>
+					<label for="side">Upload Side View</label>
+					<input type="file" name="photos" id="side" required>
+					 <label for="back">Upload Back View</label> 
+					 <input type="file" name="photos" id="back" required>			 
 				</div>
 				<button type="submit" class="submit">Upload</button>				
 			</form>
@@ -65,5 +70,6 @@
 			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
 		</div>
 	</footer>
+<!--	<script src="/javascript/AddCloth.js"></script>-->
 </body>
 </html>

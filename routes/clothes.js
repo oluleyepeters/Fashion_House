@@ -4,6 +4,7 @@ const multer = require('multer');
 const path = require('path');
 //const bcrypt = require('bcryptjs');
 const router = express.Router();
+const webpush = require('web-push')
 
 //Load Model
 var db = require('../model')
@@ -93,12 +94,46 @@ router.post('/',upload.array('photos',3), (req,res,next) => {
 		price : req.body.price,
 		front_view : `/uploads/${images[0].filename}`,
 		back_view :	`/uploads/${images[1].filename}`,
-		side_view : `/uploads/${images[2].filename}`,
+		 side_view : `/uploads/${images[2].filename}`,
 	}
+	var id;
 	new db.Cloth(newCloth)
 	.save()
 	.then(cloth => {
-		res.json(cloth)
+		webpush.setVapidDetails(
+			'mailto: oluleyepeters@gmail.com',
+			'BCzSkNNvQh2gpC_lgc3BFpanvbVBbCQTdrRX6WqZDZPE5n9KHCPSgtVCdiRtz909lYsyVsiyAWOvP6v7VT0vRkI',
+			'ght7f7W3gbXJ904BIP_F6DSvTkUnkZRwZLMw66K41sg'
+		);
+		console.log(cloth);
+		id = cloth._id;
+		return cloth;
+	})
+	.then(cloth => {
+		db.Subscriptions.find({})
+		.then(subscriptions => {
+			console.log(subscriptions);
+			return subscriptions
+		})
+		.then(subscriptions => {
+			subscriptions.forEach(function(sub){
+				var pushConfig = {
+					endpoint : sub.endpoint,
+					keys: {
+						auth: sub.keys.auth,
+						p256dh: sub.keys.p256dh
+					}
+				}
+			console.log(pushConfig)
+			webpush.sendNotification(pushConfig, JSON.stringify({
+				title: 'New Cloth', 
+				content:'New Cloth Added',
+				openUrl: 'http://localhost:80880/clothes/id/view'
+			}))
+			.catch((err) => console.log)					
+			})
+			res.redirect('http://localhost:8080/clothes/add');			
+		})
 	})
 	.catch(err => console.log)
 })

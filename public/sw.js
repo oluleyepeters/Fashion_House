@@ -132,7 +132,7 @@ function IsInArray(string, Array){
 					return caches.open(pwaCache)
 					.then((cache) => {
 //						returning file based on file requested for
-						if(event.request.headers.get.includes(`text/html`)){
+						if(e.request.headers.get.includes(`text/html`)){
 							return cache.match('/offline')
 						}
 					})
@@ -144,86 +144,59 @@ function IsInArray(string, Array){
 	}
 })
 
- //Events emitted any time a page, item is fetched
-// self.addEventListener('fetch', (e) => {
-// 	console.log('Fetched.....' , e)
-// 	e.respondWith(
-//		Checks if the request is an existing key in the cache 
-//		caches.match(e.request)
-//		.then((response) => {
-//			if(response){
-//				if it is return the response
-//				return response;
-//			}else{
-//				if it does not contain it it sends the new request
-//				return fetch(e.request)
-//				.then((res) => {
-//					storing responses dynamically
-//					return caches.open(dynamicCache)
-//					.then((cache) => {
-//						we are to store a clone because the response will be consumed
-//						cache.put(e.request.url, res.clone() );
-//						return res;
-//					})
-//				}).catch(err => {
-//					return caches.open(pwaCache)
-//					.then((cache) => {
-//						return cache.match('/offline')
-//					})
-//				})
-//			}		
-//		})
-//	);
-// })
+//Notification Clicks
+self.addEventListener('notification',function(e){
+	var notification = e.notification;
+	var action = e.action;
+	
+	console.log(notification);
+	if(action === 'confirm'){
+		console.log('Confirm was chosen');
+		notification.close();
+	}else{
+		console.log(action);
+		e.waitUntil(
+			clients.matchAll()
+				.then(function(clis){
+					var client = clis.find(function(c){
+						return c.visibiltyState === 'visible'
+					})
+					if(client !== undefined){
+						client.navigate(notification.data.url);
+						client.focus();
+					}else{
+						clients.openWindow('http://location:8080')
+					}
+					notification.close();	
+				})
+		)
+	}
+})
 
-//cache only
-//self.addEventListener('fetch', (e) => {
-//	e.respondWith(
-//		caches.match(e.request)
-//	)
-//})
+self.addEventListener('notificationclose', function(e) {
+	console.log('notification was closed', e)
+});
 
-//network only
-//self.addEventListener('fetch', (e) => {
-//	e.respondWith(
-//		fetch(e.request)
-//	)
-//})
-
-
-//Network first then cache fallback
-//Events emitted any time a page, item is fetched
-// self.addEventListener('fetch', (e) => {
-// 	console.log('Fetched.....' , e)
-// 	e.respondWith(
-//		check for the request online initially
-//		fetch(e.request)
-//		.then(function(res){
-//			return caches.open(dynamicCache)
-//				.then((cache) => {
-//					cache.put(e.request.url, res.clone());
-//					return res;
-//			})
-//		})
-//		.catch(() => {
-//			return caches.match(e.request)
-//		})
-//	);
-//})
-
-//Cache first then Network fallback
-//Events emitted any time a page, item is fetched
-//self.addEventListener('fetch', (e) => {
-// 	console.log('Fetched.....' , e)
-// 	e.respondWith(
-////		Open Cache
-//		caches.open(dynamicCache)
-//		.then(function(cache){
-//			return fetch(e.request)
-//				.then((res) => {
-//					cache.put(e.request, res.clone());
-//					return res;
-//			})
-//		})
-//	);
-//})
+//Responding to push
+self.addEventListener('push', (e) => {
+	console.log('Push Notification Received', e)
+//	check if our event contains data
+	var data = {title: 'New', content:'A new Cloth was Added', openUrl:'/'}
+	if(e.data){
+		data = JSON.parse(e.data.text()); 
+	}
+	
+//	Showing Notification
+	var options = {
+		body: data.content,
+		icon: '/images/icons/icon-96x96.png',
+		badge: '/images/icons/icon-72x72.png',
+		data: {
+			url: data.openUrl
+		}
+	}
+	
+	e.waitUntil(
+		self.registration.showNotification(data.title, options)
+	)
+});

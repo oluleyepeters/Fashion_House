@@ -38,3 +38,4 @@ function requestPermission(){
 		deferredPrompt = null;
 	}
 }
+
