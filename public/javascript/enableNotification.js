@@ -101,6 +101,14 @@ function configPushSub(){
 
 //Enable Notification
 if('Notification' in window && 'serviceWorker' in navigator){
-	enabledNotificationsButtons.style.display = 'inline-block';
-	enabledNotificationsButtons.addEventListener('click', askForNotificationPermission)
+	navigator.serviceWorker.ready
+	.then(swReg => {
+		return swReg.pushManager.getSubscription()
+	})
+	.then(sub => {
+		if(!sub){
+			enabledNotificationsButtons.style.display = 'inline-block';
+			enabledNotificationsButtons.addEventListener('click', askForNotificationPermission)
+		}
+	})
 }

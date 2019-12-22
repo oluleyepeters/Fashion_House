@@ -6,6 +6,7 @@ const express= require('express'),
 
 //Load User Model
 var db = require('../model')
+var middleware = require('../middleware')
 
 //User Login Route
 router.get('/login', (req,res) => {
@@ -83,8 +84,8 @@ router.get('/logout', (req,res) => {
 	res.redirect('/users/login')
 })
 
-//Carts
-router.post('/:id/addtoCart',(req,res) => {
+
+router.post('/:id/addtoCart', middleware.isloggedin , (req,res) => {
 	db.User.findById(req.params.id)
 	.then(user => {
 		console.log(user)
@@ -134,7 +135,7 @@ router.post('/:id/order',(req,res) => {
 	.catch(console.log)
 });
 
-router.get('/myOrders',(req,res) => {
+router.get('/myOrders', middleware.isloggedin ,(req,res) => {
 	db.Orders.find({ user : req.user.id})
 	.then(orders => {
 		res.render('orders/index', {
@@ -143,7 +144,7 @@ router.get('/myOrders',(req,res) => {
 	})	
 });
 
-router.get('/myOrders/:id',(req,res) => {
+router.get('/myOrders/:id', middleware.isloggedin ,(req,res) => {
 	db.Orders.findById(req.params.id)
 	.then(order => {
 		res.render('orders/order', {

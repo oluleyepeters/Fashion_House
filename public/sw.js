@@ -82,6 +82,11 @@ function IsInArray(string, Array){
 //Events emitted any time a page, item is fetched
  self.addEventListener('fetch', (e) => {
 	var url = `http://localhost:8080/clothes/searchClothes`;
+	var login = `http://localhost:8080/users/login`;
+	var logout = `http://localhost:8080/users/logout`;
+	var homePage = `http://localhost:8080`
+	var pwaCacheLength = pwaCache.length;
+	console.log(pwaCacheLength)
 	if(e.request.url.includes(url)){
  		console.log('Fetched.....' , e)
  		e.respondWith(
@@ -91,7 +96,7 @@ function IsInArray(string, Array){
 				// Clone the response
 				var clonedRes = res.clone();
 //				clear the data
-				clearAlldata('clothes')
+				clearAllData('clothes')
 				.then(() => {
 				return clonedRes.json()
 				})
@@ -104,6 +109,29 @@ function IsInArray(string, Array){
 				return res;
 			})
 		);
+	}else if((e.request.url.indexOf(login) > -1) || (e.request.url.indexOf(logout) > -1)){
+		
+		e.waitUntil(
+			caches.keys()
+			.then((keys) => {
+				keys.forEach(key => {
+					return caches.delete(key);
+				})
+			})
+			.then( () => {
+				caches.open(pwaCache)
+				.then(function (cache) {
+        			console.log('[Service Worker] Precaching App Shell');
+//					cache.addAll(staticFiles);
+					return cache
+      			})
+			})    
+		)
+	}else if((e.request.url.indexOf(homePage) > -1) && pwaCacheLength === 0){
+		caches.open(pwaCache)
+		.then( cache => {
+			cache.addAll(staticFiles)
+		})
 	}else if(IsInArray( e.request.url, staticFiles)) {
 			e.respondWith(
 				caches.match(e.request)
@@ -114,33 +142,33 @@ function IsInArray(string, Array){
 //		Checks if the request is an existing key in the cache 
 			caches.match(e.request)
 				.then((response) => {
-				if(response){
-//					if it is return the response
-					return response;
-				}else{
-//					if it does not contain it it sends the new request
-				return fetch(e.request)
-				.then((res) => {
-//					storing responses dynamically
-					return caches.open(dynamicCache)
-					.then((cache) => {
-//						we are to store a clone because the response will be consumed
-						cache.put(e.request.url, res.clone() );
-						return res;
-					})
-				}).catch(err => {
-					return caches.open(pwaCache)
-					.then((cache) => {
-//						returning file based on file requested for
-						if(e.request.headers.get.includes(`text/html`)){
-							return cache.match('/offline')
-						}
-					})
+					if(response){
+//						if it is return the response
+						return response;
+					}else{
+//						if it does not contain it it sends the new request
+						return fetch(e.request)
+						.then((res) => {
+//						storing responses dynamically
+							return caches.open(dynamicCache)
+							.then((cache) => {
+//							we are to store a clone because the response will be consumed
+								cache.put(e.request.url, res.clone() );
+								return res;
+							})
+						})
+						.catch(err => {
+							return caches.open(pwaCache)
+							.then((cache) => {
+//							returning file based on file requested for
+//								if(e.request.headers.get('accept').includes(`text/html`)){
+									return cache.match('/offline')
+//								}
+							})
+						})
+					}		
 				})
-			}		
-		})
-	);
-		
+		);
 	}
 })
 

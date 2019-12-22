@@ -33,24 +33,24 @@
 		<ul>
 			<% if(!user){ %>
 				<li><a href="/users/login">Login</a></li>
-				<li><a href="/register">Register</a></li>
+				<li> <a href="/users/register">Register</a></li>					
 			<% } else if(user.name === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a href="#" class="cart-btn">Cart</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
-				<%} else {%>
+			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
 				<li><a href="/clothe/add">Add</a></li>				
 				<li><a href="/users/myOrders">Orders</a></li>
 				<li><a href="#" class="cart-btn">Cart</a></li>	
-				
 			<% } %>
 		</ul>						
 		<ul>
 			<% if(user) { %> 
+				<li> <a class="enable">Enable Notification</a></li>			
 				<li> <a href="/users/logout">Logout</a></li>
-			<% } %>								
+			<% } %>												
 		</ul>
 	</nav>
 	<main>
@@ -72,20 +72,31 @@
 				</div>	
 			</div>
 				<div class="container">
-										<div class="category-box">	
-						<div class="category" id="category" data-user="<%=user._id%>">Category</div>
+					<div class="category-box">
+						<% if(!user) { %>
+							<div class="category" id="category">Category</div>	
+						<% } else {%>
+							<div class="category" id="category" data-user="<%=user._id%>">Category</div>
+						<% } %>
 						<div class="category" id="name" data-id="<%= clothe._id %>"><%= clothe.name %></div>
-						<div class="category" id="price"><%= clothe.price %></div>				
-	
-						<div id="sbm" class="category">+ Cart</div>
-						
-						<form action="/clothes/<%= clothe._id%>?_method=DELETE" method="post">
-							<input type="submit" class="category" value="Delete">
-						</form>
+						<a class="category" id="price"><%= clothe.price %></a>				
+						<% if(user) { %>
+							<button id="sbm" class="category">+ Cart</button>
+						<% } else {%>
+							<div class="category">
+								<a href="/users/login">+ Cart</a>	</div>					
+						<% } %>
+						<% if(user && user.type !== "User") { %>
+							<form action="/clothes/<%=clothe._id%>?_method=DELETE" method="post">
+								<input type="submit" class="category del" value="Delete">
+							</form>				
+						<% } %>
 					</div>							
-
-				</div>			
-			<div class="container">
+				</div>
+			<div class="container" style="background:#fff; padding:1rem;">
+				<p class="p1 login_first"></p>
+			</div>
+			<div class="container" style="background:#fff; padding:1rem;">
 				<p class="p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis consequatur, rerum molestias, odio, consectetur minus provident saepe cumque voluptatibus excepturi blanditiis deserunt numquam, qui inventore nam delectus quia quaerat temporibus velit impedit. Aperiam ipsam corrupti corporis nobis nesciunt facilis atque at, pariatur aspernatur officiis impedit, cum quos porro magni eius!</p>
 				<p class="p1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt consequatur quisquam ea alias dolor distinctio, quos, soluta, odit quae ducimus aliquid excepturi quibusdam temporibus libero unde neque itaque laudantium. Enim expedita, quaerat sint natus voluptatum. Delectus, tempora quis reiciendis commodi cum tempore ducimus culpa aperiam error ipsum explicabo voluptas adipisci!</p>
 			</div>
@@ -98,7 +109,7 @@
 	</footer>
 <!--	<div class="cart">-->
 <!--		<div class="payment-container">-->
-		<% if(user.cart.items.length > 0){ %>
+		<% if(user && user.cart.items.length > 0){ %>
 			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
 				<div class="cart-header">
 					<h3 class="text-center">My Cart</h3>
@@ -133,7 +144,12 @@
 				</div>
 			</div>		
 		<% } %>
-	<script src="/javascript/cart.js"></script>
-	<script src="/javascript/addtocart.js"></script>	
+	<% if(user){ %>
+		<script src="/javascript/cart.js"></script>
+		<script src="/javascript/addtocart.js"></script>	
+		<script type="text/javascript" src="/javascript/enableNotification.js"></script>
+	<% }else{ %>
+<!--		<script src="/javascript/addtocart2.js"></script>-->
+	<% } %>	
 </body>
 </html>

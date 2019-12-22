@@ -9,6 +9,9 @@ const webpush = require('web-push')
 //Load Model
 var db = require('../model')
 
+//Load Middlewares
+const middleware = require('../middleware');
+
 const storage = multer.diskStorage({
 	destination: './public/uploads',
 	filename:function(req,file,cb){
@@ -46,6 +49,7 @@ router.get('/', (req,res) => {
 		res.render('clothes/index',{
 			clothes:clothes
 		})		
+		console.log(clothes.length)		
 	})
 });
 
@@ -82,7 +86,7 @@ router.get('/:id/view', (req,res) => {
 	})
 });
 	
-router.post('/',upload.array('photos',3), (req,res,next) => {
+router.post('/', middleware.isloggedin , middleware.checkisAdmin ,upload.array('photos',3), (req,res,next) => {
 	const photos = req.files;
 	console.log(req.files);	
 	let images = [];	
@@ -138,7 +142,7 @@ router.post('/',upload.array('photos',3), (req,res,next) => {
 	.catch(err => console.log)
 })
 
-router.delete('/:id', (req,res) => {
+router.delete('/:id',  middleware.isloggedin , middleware.checkisAdmin ,(req,res) => {
 	db.Cloth.remove({_id: req.params.id})
 	.then(() => {
 		res.redirect('/clothes')

@@ -19,7 +19,6 @@ const getResult = function(e){
      })
      .then(res => res.json())
      .catch(err => console.log)
-	
 	e.preventDefault();
 	}
 

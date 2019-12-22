@@ -25,6 +25,18 @@ input{
 	overflow: hidden
 }
 
+.category{
+	display: inline-block;
+	background: cornflowerblue;
+	color: #fff;
+	font-size: .55rem;
+	border: none;
+	text-transform: uppercase;
+	padding: 0.4rem 0.6rem;
+	border-radius: 5px;
+	margin-bottom: 0.5rem;
+}
+
 .hidden{
 	display: none;
 }
@@ -52,7 +64,7 @@ nav{
 	top: 0;
 	background-color: #333;
 	color: white;
-	padding: 1.2rem;
+	padding: 0.6rem;
 	display: flex;
 	z-index: 1;
 	justify-content: space-between;
@@ -81,6 +93,19 @@ nav ul li a{
 	text-decoration-line: none;
 	color: #fff
 }
+
+.action-red{
+	background: red;
+	padding: 0.5rem;
+	border-radius: 10%;
+}
+
+.action-gray{
+	background: #333;
+	padding: 0.5rem;
+	border-radius: 10%;
+}
+
 
 main{
 	background: #f4f4f4
@@ -159,7 +184,7 @@ main{
 	overflow: auto;
 	background: #f4f4f4;
 	border-radius: 10px;
-}
+} 
 
 .blur{
   -webkit-filter: blur(10px);
@@ -234,7 +259,7 @@ main{
 	padding: 1rem 0;
 }
 
-@media (max-width: 575px){
+@media (max-width: 620px){
 	#details-box{
 		display: flex;
 		flex-direction: column

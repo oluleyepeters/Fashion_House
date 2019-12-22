@@ -20,19 +20,16 @@
 				<li><a href="/register">Register</a></li>
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>
-				<li><a href="/orders/order">Orders</a></li>		
 			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/orders/allOrders">All Orders</a></li>
 				<li><a href="/clothe/add">Add</a></li>			
-				<li><a href="/orders/order">Orders</a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>	
-			<% } %>
+			<% } %> 
 		</ul>						
 		<ul>
 			<% if(user) { %>
-				<li> <a href="/users/logout">Logout</a></li>	<% } %>
+				<li> <a href="/users/logout">Logout</a></li>	
+			<% } %>
 		</ul>				
 	</nav>
 	<main> 
@@ -55,47 +52,11 @@
 				</div>	
 			</div>
 		</section>
-	</main>	
-	<footer id="footer" class="sticky">
-		<div class="container">
-			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
-		</div>
-	</footer>
-		<% if(user.cart.items.length > 0){ %>
-			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
-				<div class="cart-header">
-					<h3 class="text-center">My Cart</h3>
-					<span class="close">&times;</span>
-				</div>
-				<% user.cart.items.forEach(function(item , index){ %>
-					<article class="cart-card">
-						<div class="cart-image">
-							<img src="<%=item.front_view %>" class="p1" alt="info"></div>
-						<div class="category-left cart-box">
-							<p class="category">Durojaye Peter</p>					
-							<p class="category"><%= item.price %></p>				
-						</div>				
-					</article>
-					<input type="text" class="hidden" name="items[<%=index%>][name]" value="<%= item.name %>">
-					<input type="text" class="hidden" name="items[<%=index%>][price]" value="<%= item.price %>">
-					<input type="text" class="hidden" name="items[<%=index%>][id]" value="<%= item.id %>">
-					<input type="text" class="hidden" name="items[<%=index%>][front_view]" value="<%= item.front_view %>">
-					<input type="text" class="hidden" name="items[<%=index%>][side_view]" value="<%= item.side_view %>">
-					<input type="text" class="hidden" name="items[<%=index%>][back_view]" value="<%= item.back_view %>">
-				<% }) %>	
-				<div class="payment-proceed">
-					<button type="submit" class="category">Place Order</button>
-					<p class="category"><%= user.cart.items[0].price %></p>
-				</div>
-			</form>
-		<% } else {%>
-			<div class="cart payment-container">
-				<div class="cart-header">
-					<h3 class="text-center">Your Cart is Empty</h3>
-					<span class="close">&times;</span>
-				</div>
+		<footer id="footer" class="sticky">
+			<div class="container">
+				<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
 			</div>
-		<% } %>
-	<script src="/javascript/cart.js"></script>		
+		</footer>
+	</main>	
 </body>
 </html>

@@ -38,19 +38,20 @@
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a class="cart-btn">Cart</a></li>
-				<li><a href="/users/myOrders">Orders</a></li>		<li> <a class="enable">Enable Notification</a></li>
-				<li> <a href="/users/logout">Logout</a></li>
+				<li><a href="/users/myOrders">Orders</a></li>		
 			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
 				<li><a href="#" class="cart-btn">Cart</a></li>
-				<li> <a class="enable">Enable Notification</a></li>		
-				<li> <a href="/users/logout">Logout</a></li>
-			<% } %>			
-<!--			<li><a href="#what">What <span class="hidden">We Do</span></a></li>-->
-<!--			<li><a href="#contact">Contact <span class="hidden">Us</span></a></li>	-->
+			<% } %>					
 		</ul>
+		<ul>
+			<% if(user){ %>
+				<li> <a class="enable">Enable Notification</a></li>
+				<li> <a href="/users/logout">Logout</a></li>
+			<% } %>
+		</ul>		
 	</nav>
 	<main>
 		<div id="showcase">
@@ -115,8 +116,10 @@
 	<script src="/javascript/jquery-3.3.1.min.js"></script>	
 	<script src="/javascript/app.js"></script>	
 	<script type="text/javascript" src="/javascript/idb.js"></script>		
+				
 	<% if(user) {%>
 		<script src="/javascript/cart.js"></script>
+		<script type="text/javascript" src="/javascript/enableNotofication.js"></script>		
 	<% } %>
 </body>
 </html>

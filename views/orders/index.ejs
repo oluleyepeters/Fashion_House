@@ -37,13 +37,11 @@
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a href="#" class="cart-btn">Cart</a></li>
-				<li><a href="/users/myOrders">Orders</a></li>
 			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/orders/allOrders">All Orders</a></li>
 				<li><a href="/clothe/add">Add</a></li>			
-				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>		
+				<li><a href="#" class="cart-btn">Cart</a></li>	
 			<% } %>
 		</ul>						
 		<ul>
@@ -76,7 +74,7 @@
 			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
 		</div>
 	</footer>
-		<% if(user.cart.items.length > 0){ %>
+		<% if(user && user.cart.items.length > 0){ %>
 			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
 				<div class="cart-header">
 					<h3 class="text-center">My Cart</h3>
@@ -111,6 +109,9 @@
 				</div>
 			</div>
 		<% } %>	
-	<script src="/javascript/cart.js"></script>
+	<script src="/javascript/jquery-3.3.1.min.js"></script>	
+	<% if(user) {%>
+		<script src="/javascript/cart.js"></script>
+	<% } %>	
 </body>
 </html>
