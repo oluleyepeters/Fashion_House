@@ -18,7 +18,7 @@ const keys = require('./config/keys');
 
 //setting up web push
 const publicKey = keys.public_vapid_Key;
-const privateKey = keys.private_vapid_key;
+const privateKey = keys.private_vapid_Key;
 
 webpush.setVapidDetails(
 	'mailto: oluleyepeters@gmail.com',
