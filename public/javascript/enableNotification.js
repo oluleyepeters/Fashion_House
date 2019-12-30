@@ -1,4 +1,5 @@
 var enabledNotificationsButtons = document.querySelector('.enable');
+var publicKey;
 
 function askForNotificationPermission(){
 //	asking for notification permission automatically grant access to push notification
@@ -59,6 +60,7 @@ function configPushSub(){
 //			create a new subscription
 			var vapidPublicKey = 'BCzSkNNvQh2gpC_lgc3BFpanvbVBbCQTdrRX6WqZDZPE5n9KHCPSgtVCdiRtz909lYsyVsiyAWOvP6v7VT0vRkI';
 			var convertedPublicKey = urlBase64ToUint8Array(vapidPublicKey);
+			publicKey = convertedPublicKey
 			return convertedPublicKey
 		})
 		.then(key => {
@@ -67,7 +69,7 @@ function configPushSub(){
 				console.log(swReg.pushManager);
 				swReg.pushManager.subscribe({
 					userVisibleOnly: true,
-					applicationServerKey: key
+					applicationServerKey: publicKey
 				})
 				.then((newSub) => {
 					console.log('Received Push Subscription', JSON.stringify(newSub));
