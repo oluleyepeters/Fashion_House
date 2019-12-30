@@ -17,12 +17,13 @@ require('./config/passport');
 const keys = require('./config/keys');
 
 //setting up web push
-const publicVapid = keys.public_vapid_Key;
-const privateVapid = keys.private_vapid_key;
+const publicKey = keys.public_vapid_Key;
+const privateKey = keys.private_vapid_key;
+
 webpush.setVapidDetails(
 	'mailto: oluleyepeters@gmail.com',
-	publicVapid,
-	privateVapid
+	publicKey,
+	privateKey
 )
 
 mongoose.promise = global.Promise;

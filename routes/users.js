@@ -52,7 +52,9 @@ router.post('/register',(req,res) => {
 					res.redirect('/users/register')
 				}else{
 					const newUser = new db.User({
-					name: req.body.first_name + ' ' + req.body.first_name,
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
+					userName: req.body.userName,
 					email: req.body.email,
 					password: req.body.password
 				})
