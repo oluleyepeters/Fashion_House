@@ -8,6 +8,7 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="/css/bootstrap4.css">
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">	
 	<link rel="stylesheet" href="/css/headers.css">
 	<link rel="manifest" href="/manifest/manifest.json">
 <!--	Safari Support-->
@@ -36,22 +37,25 @@
 				<li><a href="/register">Register</a></li>
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
-				<li><a class="cart-btn">Cart</a></li>
-				<li><a href="/users/myOrders">Orders</a></li>			<li> <a href="/users/logout">Logout</a></li>
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
 			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="/orders/allorder">All Orders</a></li>
-				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>		
+				<li><a href="/orders/allOrders">All Orders</a></li>
+				<li><a href="/clothe/add">Add</a></li>			
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
+			<% } %>
+		</ul>						
+		<ul>
+			<% if(user && user.name !== "User") { %> 
 				<li> <a href="/users/logout">Logout</a></li>
-			<% } %>			
-		</ul>
+			<% } %>								
+		</ul>				
 	</nav>
 	<main style="min-height:95vh; margin-top:1.2rem">
 		<div class="container">
 			<p class="text-center" style="margin-bottom:0.5rem">Your Page is not available Try one of our other pages</p>	
-			<div href="localhost:8080/clothes" class="category">All Clothes</div>
-			<div href="localhost:8080/" class="category">Home Page</div>
+			<a href="localhost:8080/clothes" class="category">All Clothes</a>
+			<a href="localhost:8080/" class="category">Home Page</a>
 			<br>
 			<br>
 		</div>
@@ -64,6 +68,43 @@
 			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
 		</div>
 	</footer>
-	<!-- <script src="/javascript/cart.js"></script> -->
+	<% if(user && user.cart.items.length > 0){ %>
+		<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
+			<div class="cart-header">
+				<h3 class="text-center">My Cart</h3>
+				<span class="close">&times;</span>
+			</div>			
+			<% user.cart.items.forEach(function(item , index){ %>
+				<article class="cart-card">
+					<div class="cart-image">
+						<img src="<%=item.front_view %>" class="p1" alt="info">
+					</div>
+					<div class="category-left cart-box">
+						<p class="category">Durojaye Peter</p>	<p class="category"><%= item.price %></p>
+					</div>				
+				</article>
+				<input type="text" class="hidden" name="items[<%=index%>][name]" value="<%= item.name %>">
+				<input type="text" class="hidden" name="items[<%=index%>][price]" value="<%= item.price %>">
+				<input type="text" class="hidden" name="items[<%=index%>][id]" value="<%= item.id %>">
+				<input type="text" class="hidden" name="items[<%=index%>][front_view]" value="<%= item.front_view %>">
+				<input type="text" class="hidden" name="items[<%=index%>][side_view]" value="<%= item.side_view %>">
+				<input type="text" class="hidden" name="items[<%=index%>][back_view]" value="<%= item.back_view %>">
+			<% }) %>	
+			<div class="payment-proceed">
+				<button type="submit" class="category">Place Order</button>
+				<p class="category"><%= user.cart.items[0].price %></p>
+			</div>
+		</form>
+		<% } else {%>
+			<div class="cart payment-container">
+				<div class="cart-header">
+					<h3 class="text-center">Your Cart is Empty</h3>
+					<span class="close">&times;</span>
+				</div>
+			</div>
+		<% } %>	
+	<% if(user) {%>
+		<script src="/javascript/cart.js"></script>
+	<% } %>		
 </body>
 </html>

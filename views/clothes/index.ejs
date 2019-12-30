@@ -7,10 +7,10 @@
 	<meta http-equiv="X-UA-Compatible" content="ie-edge">
 	<meta name="keywords" content="">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="/css/bootstrap4.css">
-	<link rel="stylesheet" href="/css/clothes.css">
+	<link rel="stylesheet" href="/css/bootstrap4.css">	
+	<link rel="stylesheet" href="/css/clothes.css">	
+	<link rel="stylesheet" href="/css/all.css">
 	<link rel="manifest" href="/manifest.json">
-	
 </head>
 <body>
 	<nav class="nav">
@@ -21,13 +21,13 @@
 				<li class="action-red"><a href="/register">Register</a></li>
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
-				<li><a class="cart-btn">Cart</a></li>
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
 				<li><a href="/users/myOrders">Orders</a></li>		
 			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
 			<% } %>					
 		</ul>
 		<ul>
@@ -40,76 +40,95 @@
 	<main>
 		<div class="container" style="margin-top:1rem;">
 		  <form>
-                <input class="form-control" type="text" name="" id="searchInput">
-                <input type="submit" class="category" value="Submit" id="btn1" aria-describedby="descriptionGetStarted"/>
-                <p style="display: none" id="descriptionGetStarted">Click on this button to search for your favorite cloth</p> 
+               <input class="" type="text" name="" id="searchInput">
+               <input type="submit" class="category" value="Submit" id="btn1" aria-describedby="descriptionGetStarted"/>
+               <p style="display: none" id="descriptionGetStarted">Click on this button to search for your favorite cloth</p> 
           </form>
-		</div>  
+		</div> 
+    	<div class="container d-flex "> 
+			<fieldset class="mr-3">
+				<legend class="mb-0">Price</legend>
+				<div class="d-flex">
+				<div class="form-check mr-2">	
+					<input type="checkbox" name="price" id="10" class="form-check-input condition" value="10" />
+					<label class="form-check-label" for="10"> &lt; 10</label>
+				</div>
+				<div class="form-check">
+					<input type="checkbox" name="price" id="20" class="form-check-input condition" value="20" />		
+					<label class="form-check-label" for="20"> &lt; 20: </label> 
+				</div>
+				</div>			
+				
+			</fieldset>
 <!--
-          <div>
-			<p>Price</p>
-			<label for="">10000: <input type="checkbox" name="price" value="10000"></label> <br>
-			<label for="">20000: <input type="checkbox" name="price" value="20000"></label> <br>
-			<label for="">30000: <input type="checkbox" name="price" value="30000"></label> <br>
-			
-			<p>Category</p>
-			<label for="">Suits: <input type="checkbox" name="price" value="Suit"></label> <br>
-			<label for="">Ankara: <input type="checkbox" name="price" value="Ankara"></label> <br>
-			<label for="">Denim: <input type="checkbox" name="price" value="Denim"></label> <br>	
-		</div>	
+			<fieldset>
+				<legend class="mb-0">Category</legend>
+				<div class="d-flex">
+					<div class="form-check mr-2">	
+						<input type="checkbox" name="suits" id="suits" class="form-check-input condition" value="Peter" />
+						<label class="form-check-label" for="suits"> Suits</label>
+					</div>
+					<div class="form-check">
+						<input type="checkbox" name="price" id="others" class="form-check-input condition" value="Others" />		
+						<label class="form-check-label" for="others">Ankara</label> 
+					</div>
+				</div>			
+			</fieldset>
 -->
-		<section id="all-clothes">
-			<div class="container">
-				<div id="clothes-container" class="p2">
+		</div>
+
+			<section id="all-clothes">
+				<div class="container">
+					<div id="clothes-container" class="p2">
 					
-				</div>
-				<div id="button-container">
+					</div>
+					<div id="button-container">
 					
-				</div>	
+					</div>	
+				</div>
+			</section>s
+ 	</main>	
+	<footer id="footer">
+		<div class="container">
+			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
+		</div>
+	</footer>
+	<% if(user && user.cart.items.length > 0){ %>
+		<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
+			<div class="cart-header">
+				<h3 class="text-center">My Cart</h3>
+				<span class="close">&times;</span>
 			</div>
-		</section>
-	</main>	
-		<footer id="footer">
-			<div class="container">
-				<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
+			<% user.cart.items.forEach(function(item , index){ %>
+				<article class="cart-card">
+					<div class="cart-image">
+						<img src="<%=item.front_view %>" class="p1" alt="info">
+					</div>
+					<div class="category-left cart-box">
+						<p class="category">Durojaye Peter</p>	
+						<p class="category"><%= item.price %></p>		
+					</div>				
+				</article>
+				<input type="text" class="hidden" name="items[<%=index%>][name]" value="<%= item.name %>">
+				<input type="text" class="hidden" name="items[<%=index%>][price]" value="<%= item.price %>">
+				<input type="text" class="hidden" name="items[<%=index%>][id]" value="<%= item.id %>">
+				<input type="text" class="hidden" name="items[<%=index%>][front_view]" value="<%= item.front_view %>">
+				<input type="text" class="hidden" name="items[<%=index%>][side_view]" value="<%= item.side_view %>">
+				<input type="text" class="hidden" name="items[<%=index%>][back_view]" value="<%= item.back_view %>">
+			<% }) %>	
+			<div class="payment-proceed">
+				<button type="submit" class="category">Place Order</button>
+				<p class="category"><%= user.cart.items[0].price %></p>
 			</div>
-		</footer>
-	
-		<% if(user && user.cart.items.length > 0){ %>
-			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
-				<div class="cart-header">
-					<h3 class="text-center">My Cart</h3>
-					<span class="close">&times;</span>
-				</div>
-				<% user.cart.items.forEach(function(item , index){ %>
-					<article class="cart-card">
-						<div class="cart-image">
-							<img src="<%=item.front_view %>" class="p1" alt="info"></div>
-						<div class="category-left cart-box">
-							<p class="category">Durojaye Peter</p>					
-							<p class="category"><%= item.price %></p>				
-						</div>				
-					</article>
-					<input type="text" class="hidden" name="items[<%=index%>][name]" value="<%= item.name %>">
-					<input type="text" class="hidden" name="items[<%=index%>][price]" value="<%= item.price %>">
-					<input type="text" class="hidden" name="items[<%=index%>][id]" value="<%= item.id %>">
-					<input type="text" class="hidden" name="items[<%=index%>][front_view]" value="<%= item.front_view %>">
-					<input type="text" class="hidden" name="items[<%=index%>][side_view]" value="<%= item.side_view %>">
-					<input type="text" class="hidden" name="items[<%=index%>][back_view]" value="<%= item.back_view %>">
-				<% }) %>	
-				<div class="payment-proceed">
-					<button type="submit" class="category">Place Order</button>
-					<p class="category"><%= user.cart.items[0].price %></p>
-				</div>
-			</form>
-		<% } else {%>
-			<div class="cart payment-container">
-				<div class="cart-header">
-					<h3 class="text-center">Your Cart is Empty</h3>
-					<span class="close">&times;</span>
-				</div>
-			</div>		
-		<% } %>
+		</form>
+	<% } else {%>
+		<div class="cart payment-container">
+			<div class="cart-header">
+				<h3 class="text-center">Your Cart is Empty</h3>
+				<span class="close">&times;</span>
+			</div>
+		</div>		
+	<% } %>
 
 
 	<% if(user){ %>
@@ -125,5 +144,6 @@
 		<script src="/javascript/jquery-3.3.1.min.js"></script>
 		<script src="/javascript/loadclothes.js"></script>	
 	<% } %>						
+			<script src="/javascript/bootstrap.js"></script>	
 </body>
 </html>

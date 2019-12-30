@@ -28,6 +28,14 @@ body{
 	overflow: hidden
 }
 
+.conditions-container{
+	max-width: 1000px;
+	margin:  auto;
+/*	display: grid;*/
+/*	grid-template-columns: repeat(2, 1fr);	*/
+	padding: 0 2rem;
+}
+
 .m1{
 	margin-top: 1.5rem;
 }
@@ -63,7 +71,7 @@ main{
 	background: #333;
 	padding: 1rem;
 	border-radius: 5px;
-	height: 480px;
+	height: 550px;
 	display: flex;
 	flex-direction: column
 }
@@ -142,7 +150,7 @@ nav ul li a{
 }
 
 .card img{
-	height: 80%;
+	height: 78%;
 	width: 100%;
 	margin-bottom: 5%;
 }

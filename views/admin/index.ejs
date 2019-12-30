@@ -21,11 +21,9 @@
 				<li><a href="/register">Register</a></li>
 				<li><a href="/clothes/">Clothes</a></li>				
 			<%} else {%>
-				<% if(user) {%>
-					<li><a href="#"><%=user.name %></a></li>
-					<li><a href="/clothe/add">Add</a></li>
-					<li><a href="/clothes/">Register</a></li>									
-				<% } %>
+				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="/clothe/add">Add</a></li>
+				<li><a href="/clothes/">All Clothes</a></li>			
 			<% } %>
 		</ul>						
 		<ul>

@@ -8,6 +8,7 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="/css/bootstrap4.css">
+	<link rel="stylesheet" href="/css/all.css">
 	<link rel="stylesheet" href="/css/clothes_show.css">
 <!--	<link rel="stylesheet" href="/css/cart.css">	-->
 <!--	Safari Support-->
@@ -36,14 +37,14 @@
 				<li> <a href="/users/register">Register</a></li>					
 			<% } else if(user.name === "User") { %> 
 				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
 				<li><a href="/users/myOrders">Orders</a></li>
 			<%} else {%>
 				<li><a href="#"><%=user.name %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
 				<li><a href="/clothe/add">Add</a></li>				
 				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>	
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		s
 			<% } %>
 		</ul>						
 		<ul>

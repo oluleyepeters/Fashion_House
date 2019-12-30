@@ -3,6 +3,14 @@ const Schema = mongoose.Schema;
 
 //Create Schema
 const ClotheSchema = new Schema({
+	category:{
+		type: String,
+		required: true
+	},	
+	material:{
+		type: String,
+		required: true
+	},	
 	name:{
 		type: String,
 		required: true
