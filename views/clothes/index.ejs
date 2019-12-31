@@ -1,3 +1,10 @@
+<% var totalPrice = 0 %>
+<% if(user && user.cart.items.length > 0){ %>
+	<% user.cart.items.forEach(function(item , index){ %>
+		<% totalPrice += parseInt(item.price) %>	
+	<% }) %>
+<% } %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,35 +14,38 @@
 	<meta http-equiv="X-UA-Compatible" content="ie-edge">
 	<meta name="keywords" content="">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="/css/bootstrap4.css">	
+	<link rel="stylesheet" href="/css/bootstrap4.css">
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">			
 	<link rel="stylesheet" href="/css/clothes.css">	
-	<link rel="stylesheet" href="/css/all.css">
 	<link rel="manifest" href="/manifest.json">
 </head>
 <body>
 	<nav class="nav">
+	<div>
 		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		<ul>
+		
+	</div>
+		<div>
 			<% if(!user){ %>
 				<li class="action-gray"><a href="/users/login">Login</a></li>
-				<li class="action-red"><a href="/register">Register</a></li>
+				<li class="action-red"><a href="/users/register">Register</a></li>
 			<% } else if(user.type === "User") { %> 
-				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
+				<li><a href="#"><%=user.userName %></a></li>
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li><span><%=`#`+totalPrice%></span>		
 				<li><a href="/users/myOrders">Orders</a></li>		
 			<%} else {%>
-				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="#"><%=user.userName %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
 				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
 			<% } %>					
-		</ul>
-		<ul>
+		</div>
+		<div>
 			<% if(user){ %>
 				<li> <a class="enable">Enable Notification</a></li>
 				<li> <a href="/users/logout">Logout</a></li>
 			<% } %>
-		</ul>		
+		</div>		
 	</nav>
 	<main>
 		<div class="container" style="margin-top:1rem;">
@@ -45,36 +55,47 @@
                <p style="display: none" id="descriptionGetStarted">Click on this button to search for your favorite cloth</p> 
           </form>
 		</div> 
-    	<div class="container d-flex "> 
+    	<div class="container d-flex fieldset-box"> 
 			<fieldset class="mr-3">
 				<legend class="mb-0">Price</legend>
 				<div class="d-flex">
-				<div class="form-check mr-2">	
-					<input type="checkbox" name="price" id="10" class="form-check-input condition" value="10" />
-					<label class="form-check-label" for="10"> &lt; 10</label>
+				<div class="form-check mr-1">	
+					<input type="checkbox" name="price" id="1500" class="form-check-input condition" value="1500" />
+					<label class="form-check-label" for="1500"> &lt; 1500</label>
+				</div>
+				<div class="form-check mr-1">
+					<input type="checkbox" name="price" id="2500" class="form-check-input condition" value="2500" />		
+					<label class="form-check-label" for="2500"> &lt; 2500: </label> 
 				</div>
 				<div class="form-check">
-					<input type="checkbox" name="price" id="20" class="form-check-input condition" value="20" />		
-					<label class="form-check-label" for="20"> &lt; 20: </label> 
-				</div>
+					<input type="checkbox" name="price" id="2500" class="form-check-input condition" value="2501" />		
+					<label class="form-check-label" for="2500"> &ge; 2500: </label> 
+				</div>				
 				</div>			
 				
 			</fieldset>
-<!--
+
 			<fieldset>
 				<legend class="mb-0">Category</legend>
 				<div class="d-flex">
-					<div class="form-check mr-2">	
-						<input type="checkbox" name="suits" id="suits" class="form-check-input condition" value="Peter" />
-						<label class="form-check-label" for="suits"> Suits</label>
+					<div class="form-check mr-1">	
+						<input type="checkbox" name="pant" id="pant" class="form-check-input condition" value="Pants" />
+						<label class="form-check-label" for="pant"> Pant</label>
 					</div>
-					<div class="form-check">
-						<input type="checkbox" name="price" id="others" class="form-check-input condition" value="Others" />		
-						<label class="form-check-label" for="others">Ankara</label> 
+					<div class="form-check mr-1">
+						<input type="checkbox" name="skirt" id="skirt" class="form-check-input condition" value="Skirts" />		
+						<label class="form-check-label" for="skirt">Skirt</label> 
 					</div>
+					<div class="form-check mr-1">
+						<input type="checkbox" name="gown" id="gown" class="form-check-input condition" value="Gowns" />		
+						<label class="form-check-label" for="gown">Gown</label> 
+					</div>
+					<div class="form-check mr-1">
+						<input type="checkbox" name="blazzer" id="blazzer" class="form-check-input condition" value="Blazzers" />		
+						<label class="form-check-label" for="blazzer">Blazzers</label> 
+					</div>										
 				</div>			
 			</fieldset>
--->
 		</div>
 
 			<section id="all-clothes">
@@ -86,13 +107,16 @@
 					
 					</div>	
 				</div>
-			</section>s
+		</section>
  	</main>	
-	<footer id="footer">
-		<div class="container">
-			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
+ 	<div class="add">
+		<i class="fa fa-plus"></i>
+	</div>	
+	<div id="footer">
+		<div class="container" >
+			<p class="text-center">Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
 		</div>
-	</footer>
+	</div>  	
 	<% if(user && user.cart.items.length > 0){ %>
 		<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
 			<div class="cart-header">
@@ -118,7 +142,7 @@
 			<% }) %>	
 			<div class="payment-proceed">
 				<button type="submit" class="category">Place Order</button>
-				<p class="category"><%= user.cart.items[0].price %></p>
+				<p class="category"><%= parseFloat(totalPrice) %></p>
 			</div>
 		</form>
 	<% } else {%>
@@ -133,8 +157,9 @@
 
 	<% if(user){ %>
 		<script src="/javascript/cart.js"></script>
+		<script type="text/javascript" src="/javascript/idb.js"></script>				
 		<script src="/javascript/utility.js"></script>		
-		<script type="text/javascript" src="/javascript/enableNotification.js"></script><script type="text/javascript" src="/javascript/idb.js"></script>		
+		<script type="text/javascript" src="/javascript/enableNotification.js"></script>
 
 		<script src="/javascript/jquery-3.3.1.min.js"></script>
 		<script src="/javascript/loadclothes.js"></script>	

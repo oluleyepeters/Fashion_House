@@ -22,7 +22,7 @@ const UserSchema = new Schema({
 	type:{
 		type: String,
 		required : true,
-		default : 'Admin'
+		default : 'User'
 	},
 	password:{
 		type: String,

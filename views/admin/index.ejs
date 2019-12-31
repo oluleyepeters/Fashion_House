@@ -14,24 +14,26 @@
 </head>
 <body>
 	<nav class="nav">
+	<div>
 		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		<ul>
+		
+	</div>
+		<div>
 			<% if(!user){ %>
-				<li><a href="/users/login">Login</a></li>
-				<li><a href="/register">Register</a></li>
-				<li><a href="/clothes/">Clothes</a></li>				
-			<%} else {%>
-				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="/clothe/add">Add</a></li>
-				<li><a href="/clothes/">All Clothes</a></li>			
-			<% } %>
-		</ul>						
-		<ul>
-			<% if(user) { %> 
+				<li class="action-gray"><a href="/users/login">Login</a></li>
+				<li class="action-red"><a href="/users/register">Register</a></li>
+			<% } else {%>
+				<li><a href="#"><%=user.userName %></a></li>
+				<li><a href="/clothe/add">Add</a></li>	
+			<% } %>					
+		</div>
+		<div>
+			<% if(user){ %>
 				<li> <a href="/users/logout">Logout</a></li>
-			<% } %>								
-		</ul>		
+			<% } %>
+		</div>		
 	</nav>
+
 	<main>
 		<section id="all-clothes">
 			<div class="container">
@@ -41,7 +43,7 @@
 							<p>
 								<%= order.date.toDateString() %>
 							</p>
-							<div class="category"><a href="/orders/allOrders/<%=order._id%>">View Order</a></div>
+							<button class="category"><a href="/orders/allOrders/<%=order._id%>">View Order</a></button>
 						</div>					
 					<% }) %>				
 				</div>					

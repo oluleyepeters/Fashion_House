@@ -16,6 +16,26 @@ body{
 
 .text-center{text-align: center}
 
+.add{
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: orange;
+	right: 10px;
+	bottom: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+.fa-plus{
+	font-size: 32px;
+	color: white;
+}
+
+
 .container{
 	max-width: 1100px;
 	margin: auto;
@@ -98,13 +118,11 @@ nav{
 	background-color: #333;
 	color: white;
 	padding: 1.2rem;
+	padding-left: 0.6rem;
+	padding-right: 0.6rem;
 	display: flex;
-	z-index: 1;
 	justify-content: space-between;
-}
-
-nav li{
-	list-style: none;
+	z-index: 1;
 }
 
 nav li a{
@@ -113,22 +131,26 @@ nav li a{
 	color: white;
 }
 
-nav ul{
+nav div{
 	display: flex;
+	height: 100%;
+/*	width: auto;*/
+/*	vertical-align: center;*/
+/*	align-self: center;*/
 }
 
-nav ul:last-child{
-	margin-top: 0.5rem;
+nav > div:first-child li{
+	margin-left: 1rem
 }
 
-nav ul li{
+nav > div:last-child li{
+	margin-right: 1rem
+}
+
+nav div li{
 	list-style: none;
-	margin: 0 0.3rem;
-}
-
-nav ul li a{
-	text-decoration-line: none;
-	color: #fff
+	align-self: center;	
+	margin: 0 0.4rem;
 }
 
 .cloth-name{
@@ -192,7 +214,7 @@ textarea{
 	top: 0;
 	left: 0;
 	right: 0;
-	bottom: 0;
+/*	bottom: 0;*/
 	opacity: 0;
 	max-width: 300px;
 /*	margin-top: 20px;*/
@@ -290,6 +312,7 @@ textarea{
 	right: 0;
 }
 
+
 @media (max-width: 868px){	
 	#all-clothes #clothes-container{
 		display: grid;
@@ -298,18 +321,20 @@ textarea{
 	}
 	
 	nav{
+		padding: 0.5rem;
 		display: flex;
 		flex-direction: column;
 	}
 	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
+	nav > div{
+		display: flex;
+		justify-content: center;
 	}
 	
-	nav > ul{
-		margin: auto;
-	}
+	nav > div > li{
+		text-align: center;
+		margin-bottom: 0.2rem;
+	}		
 	
 	footer p{
 		text-align: center;
@@ -396,33 +421,35 @@ textarea{
 }
 
 @media (max-width: 400px){	
+	nav{
+		padding: 0.5rem;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	nav > div{
+		display: flex;
+		justify-content: center;
+	}
+	
+	nav > div > li{
+		text-align: center;
+		margin-bottom: 0.2rem;
+	}	
+	
+	
 	#all-clothes #clothes-container{
 		display: grid;
 		grid-template-columns: repeat(1, 1fr);
 		grid-gap: 1rem;
 	}
-	
-	nav{
-		display: flex;
-		flex-direction: column;
-	}
-	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
-	}
-	
-		.container{
+		
+	.container{
 		max-width: 400px;
 		margin:  auto;
 /*	height: 100%;*/
 		padding: 0 2rem;
 		overflow: hidden
-	}
-
-	
-	nav > ul{
-		margin: auto;
 	}
 	
 	footer p{

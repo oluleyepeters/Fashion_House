@@ -13,24 +13,25 @@
 </head>
 <body>
 	<nav class="nav">
-		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		<ul>
+		<div>
+			<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
+		</div>
+		<div>
 			<% if(!user){ %>
-				<li><a href="/users/login">Login</a></li>
-				<li><a href="/register">Register</a></li>
-			<% } else if(user.type === "User") { %> 
-				<li><a href="#"><%=user.name %></a></li>
-				<li><a class="cart-btn">Cart</a></li>
-				<li><a href="/users/myOrders">Orders</a></li>			<li> <a href="/users/logout">Logout</a></li>
+				<li class="action-gray"><a href="/users/login">Login</a></li>
+				<li class="action-red"><a href="/users/register">Register</a></li>	
 			<%} else {%>
-				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="#"><%=user.userName %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
-				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="#" class="cart-btn">Cart</a></li>		
+			<% } %>					
+		</div>
+		<div>
+			<% if(user){ %>
 				<li> <a href="/users/logout">Logout</a></li>
-			<% } %>			
-		</ul>		
+			<% } %>
+		</div>		
 	</nav>
+
 	<main>
 		<div class="container">
 		</div>
@@ -41,6 +42,10 @@
 					<label for="name">Name</label>
 					<input type="text" name="name" id="name" required>
 				</div>
+				<div class="form-box">
+					<label for="category">Category</label>
+					<input type="text" name="category" id="category" required>
+				</div>				
 				<div class="form-box">
 					<label for="price">Price</label>
 					<input type="number" name="price" id="price" required>

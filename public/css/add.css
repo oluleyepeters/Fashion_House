@@ -57,9 +57,7 @@ input{
 }
 
 main{
-/*	height: 100vh;*/
-/*	overflow-x: hidden;*/
-	min-height: 100%;
+	min-height: 100vh;
 }
 
 /*Navbar*/
@@ -69,14 +67,13 @@ nav{
 	background-color: #333;
 	color: white;
 	padding: 1.2rem;
+	padding-left: 0.6rem;
+	padding-right: 0.6rem;
 	display: flex;
-	z-index: 1;
 	justify-content: space-between;
+	z-index: 1;
 }
 
-nav li{
-	list-style: none;
-}
 
 nav li a{
 	list-style: none;
@@ -84,19 +81,35 @@ nav li a{
 	color: white;
 }
 
-nav ul{
+nav div{
 	display: flex;
+	height: 100%;
+/*	width: auto;*/
+/*	vertical-align: center;*/
+/*	align-self: center;*/
 }
 
-nav ul li{
+nav > div:first-child li{
+	margin-left: 1rem
+}
+
+nav > div:last-child li{
+	margin-right: 1rem
+}
+
+
+nav div li{
 	list-style: none;
+	align-self: center;	
 	margin: 0 0.4rem;
 }
 
-nav ul li a{
+nav div li a{
 	text-decoration-line: none;
 	color: #fff
 }
+
+
 
 form{
 	margin: 5% auto;
@@ -112,7 +125,7 @@ form .form-box {
 }
 
 form .form-box > * {
-	margin-top: 20px;
+	margin-top: 5px;
 }
 
 .form-box label {
@@ -123,13 +136,13 @@ form .form-box > * {
 	width: 80%;
 	border: none;
 	border-bottom: 1px solid black;
-	margin: 10px 10%;
+	margin: 5px 10%;
 }
 
 .form-box:last-child input {
 /*	width: 80%;*/
 	border: none;
-	margin: 10px 10%;
+	margin: 5px 10%;
 }
 
 .form-desc input{
@@ -137,58 +150,6 @@ form .form-box > * {
 	border: none;
 	margin: 5px 10%;	
 }
-
-.cart{ 
-	position: absolute;
-	top: -20000px;
-	margin: 100px auto 0px auto;
-	left: 0;
-/*	background: #f4f4f4;*/
-	border: 5px;
-/*	width: 100%;*/
-	height: 100vh;
-}
-
-.cart-card{
-	display: flex;
-	justify-content: space-between;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	width: 100%;
-/*	flex-direction: column;*/
-	align-items: center;
-}
-
-/*
-.cart-card{
-	display: flex;
-	justify-content: center;
-}
-*/
-
-.cart-image{
-	display: inline-block;
-/*	margin: 0px auto;*/
-	margin-right: 20px;
-	height: 150px;
-	width: 120px;
-	border-radius: 50%;
-}
-
-.payment-proceed{
-/*	max-width: 900px;*/
-/*	margin:  auto;*/
-	display: flex;
-	margin-top: 20px;
-	padding: 0 2rem;
-	overflow: auto;
-	justify-content: space-between;	
-}
-
-.payment-proceed .category{
-	padding: 0.6rem 0.8rem;
-}
-
 
 .submit{
 	display: inline-block;
@@ -206,7 +167,7 @@ form .form-box > * {
 	display: flex;
 	justify-content: center;
 	background: #333;
-	position: absolute;
+/*	position: absolute;*/
 	right: 0;
 	bottom: 0;
 	left: 0;
@@ -217,52 +178,107 @@ form .form-box > * {
 	padding: 1rem 0;
 }
 
-@media (max-width: 575px){	
-	#all-clothes #clothes-container{
-		display: grid;
-		grid-template-columns: repeat(1, 1fr);
-/*		grid-gap: 1rem;*/
-	}
-	
+@media (max-width: 1200px){	
 	nav{
+		padding: 0.5rem;
 		display: flex;
 		flex-direction: column;
 	}
 	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
+	nav > div{
+		display: flex;
+		justify-content: center;
 	}
 	
-	nav > ul:last-child{
+	nav > div > li{
 		text-align: center;
-		margin-top: 0.5rem;
+		margin-bottom: 0.2rem;
 	}	
-	
-	nav > ul{
-		margin: auto;
-	}
 	
 	footer p{
 		text-align: center;
 	}
-	
-	.cart{
-		position: absolute;
-		top: 50px;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		opacity: 0;
-		max-width: 300px;
-/*/	*	margin-top: 20px;*/*/
-		margin: 600px auto;
+		
+	.container{
+		max-width: 400px;
+		margin:  auto;
+/*	height: 100%;*/
+		padding: 0 2rem;
+		overflow: hidden
+	}	
+}
+
+
+@media (max-width: 768px){	
+	nav{
+		padding: 0.5rem;
 		display: flex;
 		flex-direction: column;
-		height:50vh;
-		padding: 1rem 2rem;
-		overflow: auto;
-		background: #f4f4f4;
-		border-radius: 10px;
+	}
+	
+	nav > div{
+		display: flex;
+		justify-content: center;
+	}
+	
+	nav > div > li{
+		text-align: center;
+		margin-bottom: 0.2rem;
+	}	
+	
+	footer p{
+		text-align: center;
+	}
+}
+
+
+@media (max-width: 575px){	
+	nav{
+		padding: 0.5rem;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	nav > div{
+		display: flex;
+		justify-content: center;
+	}
+	
+	nav > div > li{
+		text-align: center;
+		margin-bottom: 0.2rem;
+	}	
+	
+		
+}
+
+
+@media (max-width: 400px){	
+	nav{
+		padding: 0.5rem;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	nav > div{
+		display: flex;
+		justify-content: center;
+	}
+	
+	nav > div > li{
+		text-align: center;
+		margin-bottom: 0.2rem;
+	}	
+	
+	footer p{
+		text-align: center;
+	}
+		
+	.container{
+		max-width: 400px;
+		margin:  auto;
+/*	height: 100%;*/
+		padding: 0 2rem;
+		overflow: hidden
 	}
 }

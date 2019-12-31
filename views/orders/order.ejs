@@ -1,3 +1,10 @@
+<% var totalPrice = 0 %>
+<% if(user && user.cart.items.length > 0){ %>
+	<% user.cart.items.forEach(function(item , index){ %>
+		<% totalPrice += parseInt(item.price) %>	
+	<% }) %>
+<% } %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +15,7 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<!-- <link rel="stylesheet" href="/css/bootstrap4.css"> -->
-	<link rel="stylesheet" href="/css/all.css">	
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">		
 	<link rel="stylesheet" href="/css/orders.css">
 <!--	Safari Support-->
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,27 +36,31 @@
 </head>
 <body>
 	<nav class="nav">
+	<div>
 		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		<ul>
+		
+	</div>
+		<div>
 			<% if(!user){ %>
-				<li><a href="/users/login">Login</a></li>
-				<li><a href="/register">Register</a></li>
+				<li class="action-gray"><a href="/users/login">Login</a></li>
+				<li class="action-red"><a href="/users/register">Register</a></li>
 			<% } else if(user.type === "User") { %> 
-				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
-				<li><a href="/orders/order">Orders</a></li>		
+				<li><a href="#"><%=user.userName %></a></li>
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li><span><%=`#`+totalPrice%></span>		
+				<li><a href="/users/myOrders">Orders</a></li>		
 			<%} else {%>
-				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="/orders/allOrders">All Orders</a></li>
-				<li><a href="/clothe/add">Add</a></li>			
-				<li><a href="/orders/order">Orders</a></li>
+				<li><a href="#"><%=user.userName %></a></li>
+				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/users/myOrders">Orders</a></li>
 				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
+			<% } %>					
+		</div>
+		<div>
+			<% if(user){ %>
+				<li> <a class="enable">Enable Notification</a></li>
+				<li> <a href="/users/logout">Logout</a></li>
 			<% } %>
-		</ul>						
-		<ul>
-			<% if(user) { %>
-				<li> <a href="/users/logout">Logout</a></li>	<% } %>
-		</ul>				
+		</div>		
 	</nav>
 	<main> 
 		<section id="all-clothes">
@@ -64,14 +75,19 @@
 								</div>
 								<div class="category-left">
 									<div class="category"><a href="">Category</a></div></div>
+								<div class="category-left">
 								<div class="category"><a href="/clothes/<%=order.id%>/view">View</a></div>
+								</div>
 							</div>
 						</article>
 					<% }) %>
 				</div>	
 			</div>
 		</section>
-	</main>	
+	</main>
+	<div class="add">
+		<i class="fa fa-plus"></i>
+	</div>		
 	<footer id="footer" class="sticky">
 		<div class="container">
 			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
@@ -101,7 +117,7 @@
 				<% }) %>	
 				<div class="payment-proceed">
 					<button type="submit" class="category">Place Order</button>
-					<p class="category"><%= user.cart.items[0].price %></p>
+					<p class="category"><%= parseFloat(totalPrice) %></p>
 				</div>
 			</form>
 		<% } else {%>

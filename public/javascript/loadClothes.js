@@ -16,7 +16,7 @@ const renderClothe = cloth => {
 									<div class="category-left">
 										<div class="category"><a href="">Category</a></div>				
 									</div>
-								<div class="category"><a href="/clothes/${cloth._id}/view">View</a></div>
+								<div class="category "><a href="/clothes/${cloth._id}/view">View</a></div>
 							</div>
 						</article>`;
 	document.querySelector('#clothes-container').insertAdjacentHTML('beforeend',markup)	
@@ -68,117 +68,134 @@ const renderClothes = (clothes, page = 1, resPerPage = 10) => {
     renderButtons(page, clothes.length, resPerPage);
 };
 
-$(document).ready(() => {
-	fetch(`http://localhost:8080/clothes/clothes`)
-		.then(res => {
-			return res.json()
-		})
-		.then(data => {
-			data.forEach(data => {
-				clothes.push(data)
-			})
-			// console.log(clothes)			
-			renderClothes(data);
-			// state.clothes = data;
-			return data;
-		}) 
-		.then(data => {
-		data.forEach(data => {
-			state.push(data)
-		})
-		var self;
-			document.querySelector('body').addEventListener('click', e => {
-				self = data;
-				console.log('clicked')
-    			if (e.target.matches('.category, .btn-inline')) {
-					console.log('clicked2')
-        			const goToPage = parseInt(e.target.dataset.goto, 10);
-        			renderClothes(self, goToPage);
-    			}
-			})
-			return state;
-		})
-		.then(state => {
+const conditioning = (state) => {
 			document.querySelectorAll('.condition').forEach(condition => {
 				condition.addEventListener('change', (e) => {
 						conditionChecked.forEach(condition =>{
 							if(e.target.checked){
-								if(parseInt(e.target.value) === 10){
+								if(parseInt(e.target.value) === 1500){
 									state.forEach(cloth => {
-										if(cloth.price <= 10){
+										if(cloth.price <= 1500){
 											if(!(newCloth.includes(cloth))){
 												newCloth.push(cloth)
 											}
 										}
 									})
 								}
-								else if(parseInt(e.target.value) === 20){
+								else if(parseInt(e.target.value) === 2500){
 									state.forEach(cloth => {
-										if((cloth.price > 10) && (cloth.price <= 30)){
+										if((cloth.price) <= 2500 ){
+											if(!(newCloth.includes(cloth))){
+												newCloth.push(cloth)
+											}									
+										} 
+									})
+								} 
+								else if(parseInt(e.target.value) === 2501){
+									state.forEach(cloth => {
+										if((cloth.price) > 2500 ){
+											if(!(newCloth.includes(cloth))){
+												newCloth.push(cloth)
+											}									
+										} 
+									})
+								} 								
+								else if(e.target.value === 'Pants'){
+									state.forEach(cloth => {
+										if(cloth.category === 'Pants'){
 											if(!(newCloth.includes(cloth))){
 												newCloth.push(cloth)
 											}									
 										} 
 									})
 								}
-								else if(e.target.value === 'Peter'){
+								else if(e.target.value === 'Skirts'){
 									state.forEach(cloth => {
-										if(cloth.name === 'peter'){
-											if(!(newCloth.includes(cloth))){
-												newCloth.push(cloth)
-											}									
-										} 
-									})
-								}
-								else if(e.target.value === 'Others'){
-									state.forEach(cloth => {
-										if(cloth.name !== 'Peter'){
+										if(cloth.category === 'Skirts'){
 											if(!(newCloth.includes(cloth))){
 												newCloth.push(cloth)
 											}									
 										} 
 									})
 								}								
+								else if(e.target.value === 'Blazzers'){
+									state.forEach(cloth => {
+										if(cloth.category === 'Blazzers'){
+											if(!(newCloth.includes(cloth))){
+												newCloth.push(cloth)
+											}									
+										} 
+									})
+								}								
+								else if(e.target.value === 'Gowns'){
+									state.forEach(cloth => {
+										if(cloth.category === 'Gowns'){
+											if(!(newCloth.includes(cloth))){
+												newCloth.push(cloth)
+											}									
+										} 
+									})
+								}																					
 							}else{
 								if(!(e.target.checked)){
-							 		if(parseInt(e.target.value) === 10){
+							 		if(parseInt(e.target.value) === 1500){
 							 			state.forEach(cloth => {
-							 				if(cloth.price <= 10){
+							 				if(cloth.price <= 1500){
 							 					if((newCloth.includes(cloth))){
 							 						newCloth.splice(newCloth.indexOf(cloth), 1)
 							 						// console.log(clothes)
 							 					}
 							 				}
 							 			})
-							 		}else if(parseInt(e.target.value) === 20){
+							 		}else if(parseInt(e.target.value) === 2500){
 							 			state.forEach(cloth => {
-							 				if((cloth.price > 10) && (cloth.price <= 30)){
+							 				if((cloth.price <= 2500)){
 							 					if((newCloth.includes(cloth))){
 							 						newCloth.splice(newCloth.indexOf(cloth), 1)
 								 				}									
 								 			}
 								 		})
-								 	}else if(parseInt(e.target.value) === 'Peter'){
+								 	}else if(parseInt(e.target.value) === 2501){
+							 			state.forEach(cloth => {
+							 				if((cloth.price > 2501)){
+							 					if((newCloth.includes(cloth))){
+							 						newCloth.splice(newCloth.indexOf(cloth), 1)
+								 				}									
+								 			}
+								 		})
+								 	}else if(parseInt(e.target.value) === 'Pants'){
 									 	state.forEach(cloth => {
-									 		if((cloth.name === 'peter')){
+									 		if((cloth.category === 'Pants')){
 									 			if((newCloth.includes(cloth))){
 								 				newCloth.splice(newCloth.indexOf(cloth), 1)
 								 				}									
 									 		}
 									 	})
-									}else if(parseInt(e.target.value) === 'Others'){
+									}else if(parseInt(e.target.value) === 'Blazzers'){
 									 	state.forEach(cloth => {
-									 		if((cloth.name !== 'peter')){
+									 		if((cloth.category !== 'Blazzers')){
+									 			if((newCloth.includes(cloth))){
+									 				newCloth.splice(newCloth.indexOf(cloth), 1)
+								 				}									
+									 		}
+									 	})
+									}else if(parseInt(e.target.value) === 'Gowns'){
+									 	state.forEach(cloth => {
+									 		if((cloth.category !== 'Gowns')){
+									 			if((newCloth.includes(cloth))){
+									 				newCloth.splice(newCloth.indexOf(cloth), 1)
+								 				}									
+									 		}
+									 	})
+									}else if(parseInt(e.target.value) === 'Skirts'){
+									 	state.forEach(cloth => {
+									 		if((cloth.category !== 'Skirts')){
 									 			if((newCloth.includes(cloth))){
 									 				newCloth.splice(newCloth.indexOf(cloth), 1)
 								 				}									
 									 		}
 									 	})
 									}									
-								// }else if((!(e.target.checked)) && newCloth.length === 0){
-								// 	console.log(clothes)
-								// 	// break
-								// 	// renderClothes(clothes)
 								}
 							}										
 						})
@@ -207,10 +224,40 @@ $(document).ready(() => {
 						}
 					})
 				})
+		}
 
+$(document).ready(() => {
+	fetch(`http://localhost:8080/clothes/clothes`)
+		.then(res => {
+			return res.json()
+		})
+		.then(data => {
+			data.forEach(data => {
+				clothes.push(data)
+			})
+			// console.log(clothes)			
+			renderClothes(data);
+			// state.clothes = data;
+			return data;
+		}) 
+		.then(data => {
+			data.forEach(data => {
+			state.push(data)
+		})
+		var self;
+			document.querySelector('body').addEventListener('click', e => {
+    			if (e.target.classList.contains('btn-inline')) {
+        			const goToPage = parseInt(e.target.dataset.goto, 10);
+        			renderClothes(data, goToPage);
+    			}
+			})
+			return state;
+		})
+		.then(state => {
+			conditioning(state);
 		})
 		.catch(err => console.log)
-})
+})		
 
 searchBtn.addEventListener('click', function(e){	
 	var url = `http://localhost:8080/clothes/searchClothes/${search.value}`;	
@@ -228,47 +275,57 @@ searchBtn.addEventListener('click', function(e){
 			return data
 		})
 		.then(data => {
+			state=[];
 			// var self = data;
-		data.forEach(data => {
-			state.push(data)
-		})
+			data.forEach(data => {
+				state.push(data)
+			})
 			// state = data;
 			document.querySelector('body').addEventListener('click', e => {
 				console.log('clicked')
-    			if (e.target.matches('.category, .btn-inline')) {
+    			if (e.target.classList.contains('btn-inline')) {
         			const goToPage = parseInt(e.target.dataset.goto, 10);
-        			document.querySelector('#button-container').innerHTML = '';					
-        			document.querySelector('#clothes-container').innerHTML = '';
         			renderClothes(self, goToPage);
     			}
 			})
-		}).catch(err => console.log)	
+			return state;
+		})
+		.then( state  => {
+			conditioning(state);
+		})
+		.catch(err => console.log)	
 	
 	
 //	cache then network strategy
 	if('indexedDB' in window){
 		readAllData('clothes')
-			.then(function(data){
-				if(!networkDataReceived){
-					console.log('From Cache', data);
-					let allMovies = '';
-					data.forEach((cloth) => {
-					allMovies += `<article class="card">
-								<img src="${cloth.back_view}" class="p1" alt="info"/>
-									<div class="category-box">
-										<div class="category-left">
-											<div class="category"><a href="">${cloth.name}</a></div>	
-										</div>
-									<div class="category-left">
-										<div class="category"><a href="">Category</a></div>				
-									</div>
-								<div class="category"><a href="/clothes/${cloth._id}/view">View</a></div>
-							</div>
-						</article>`
-					})
-				document.querySelector('#clothes-container').innerHTML = allMovies;	
-				}
+		.then(data => {
+			networkDataReceived = true;
+			console.log('From web', data)
+			renderClothes(data);
+			// state.clothes = data;
+			return data
+		})
+		.then(data => {
+			// var self = data;
+			state = [];
+			data.forEach(data => {
+				state.push(data)
 			})
+			// state = data;
+			document.querySelector('body').addEventListener('click', e => {
+				console.log('clicked')
+    			if (e.target.classList.contains('btn-inline')) {
+        			const goToPage = parseInt(e.target.dataset.goto, 10);
+        			renderClothes(self, goToPage);
+    			}
+			})
+			return state;
+		})
+		.then( state  => {
+			conditioning(state);
+		})
+		.catch(err => console.log)		
 	}
 	e.preventDefault();	
 });

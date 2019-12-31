@@ -1,3 +1,10 @@
+<% var totalPrice = 0 %>
+<% if(user && user.cart.items.length > 0){ %>
+	<% user.cart.items.forEach(function(item , index){ %>
+		<% totalPrice += parseInt(item.price) %>	
+	<% }) %>
+<% } %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +15,7 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="/css/bootstrap4.css">
-	<link rel="stylesheet" href="/css/all.css">	
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css">		
 	<link rel="stylesheet" href="/css/headers.css">
 	<link rel="manifest" href="/manifest.json">
 <!--	Safari Support-->
@@ -31,35 +38,38 @@
 </head>
 <body>
 	<nav class="nav">
+	<div>
 		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		<ul>
+		
+		</div>
+		<div>
 			<% if(!user){ %>
-				<li><a href="/users/login">Login</a></li>
-				<li><a href="/register">Register</a></li>
+				<li class="action-gray"><a href="/users/login">Login</a></li>
+				<li class="action-red"><a href="/users/register">Register</a></li>
 			<% } else if(user.type === "User") { %> 
-				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
-				<li><a href="/users/myOrders">Orders</a></li>		
+				<li><a href="#"><%=user.userName %></a></li>
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart" /></a></li>
+<!--				<span><`#`+totalPrice%></span>		-->
+				<li><a href="/users/myOrders">Orders</a></li>	
 			<%} else {%>
-				<li><a href="#"><%=user.name %></a></li>
+				<li><a href="#"><%=user.userName %></a></li>
 				<li><a href="/orders/allorder">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
 				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
 			<% } %>					
-		</ul>
-		<ul>
+		</div>
+		<div>
 			<% if(user){ %>
 				<li> <a class="enable">Enable Notification</a></li>
 				<li> <a href="/users/logout">Logout</a></li>
 			<% } %>
-		</ul>		
+		</div>		
 	</nav>
 	<main>
 		<div id="showcase">
 			<div id="showcase-content">
 				<h1>A Mile Ahead of The Rest</h1>
 				<div id="link-box">
-					<a href="#what" class="btn">Read More <span class="hidden">About Us</span></a>		
 					<a href="/clothes" class="btn">View Clothes</a>
 				</div>
 			</div> 
@@ -71,13 +81,17 @@
 			<div id="contact">
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur veniam, sed, facere blanditiis porro optio cum, nobis reprehenderit esse magni, maiores ullam quas! Consectetur nisi rem itaque. Vel, accusamus provident.
 			</div>
-			<button class="add">Add</button>
+			<button style="display:none;" class="add">Add</button>
 		</section>
 	</main>
+	<div class="add">
+		<i class="fa fa-plus"></i>
+	</div>
+
 	<footer id="footer">
-		<div class="container">
+<!--		<div class="container">-->
 			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
-		</div>
+<!--		</div>-->
 	</footer>
 		<% if(user && user.cart.items.length > 0){ %>
 			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
@@ -103,7 +117,7 @@
 				<% }) %>	
 				<div class="payment-proceed">
 					<button type="submit" class="category">Place Order</button>
-					<p class="category"><%= user.cart.items[0].price %></p>
+					<p class="category"><%= parseFloat(totalPrice) %></p>
 				</div>
 			</form>
 		<% } else {%>
@@ -116,7 +130,7 @@
 		<% } %>
 	<script src="/javascript/jquery-3.3.1.min.js"></script>	
 	<script src="/javascript/app.js"></script>	
-	<script type="text/javascript" src="/javascript/idb.js"></script>		
+	<script type="text/javascript" src="/javascript/idb.js"></script>
 				
 	<% if(user) {%>
 		<script src="/javascript/cart.js"></script>

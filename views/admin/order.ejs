@@ -12,22 +12,25 @@
 </head>
 <body>
 	<nav class="nav">
+	<div>
 		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		<ul>
+		
+	</div>
+		<div>
 			<% if(!user){ %>
-				<li><a href="/users/login">Login</a></li>
-				<li><a href="/register">Register</a></li>
-			<%} else {%>
-				<li><a href="#"><%=user.name %></a></li>
-				<li><a href="/orders/allOrders">All Orders</a></li>
-				<li><a href="/clothe/add">Add</a></li>			
-			<% } %> 
-		</ul>						
-		<ul>
-			<% if(user) { %>
-				<li> <a href="/users/logout">Logout</a></li>	
+				<li class="action-gray"><a href="/users/login">Login</a></li>
+				<li class="action-red"><a href="/users/register">Register</a></li>
+			<% } else {%>
+				<li><a href="#"><%=user.userName %></a></li>
+				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/clothe/add">Add</a></li>	
+			<% } %>					
+		</div>
+		<div>
+			<% if(user){ %>
+				<li> <a href="/users/logout">Logout</a></li>
 			<% } %>
-		</ul>				
+		</div>		
 	</nav>
 	<main> 
 		<section id="all-clothes">
@@ -42,18 +45,21 @@
 								</div>
 								<div class="category-left">
 									<div class="category"><a href="">Category</a></div></div>
-								<div class="category"><a href="/clothes/<%=order.id%>/view">View</a></div>
+									<div class="category-left">
+									<div class="category"><a href="/clothes/<%=order.id%>/view">View</a></div>
+									</div>
 							</div>
 						</article>
 					<% }) %>
 				</div>	
 			</div>
 		</section>
-		<footer id="footer" class="sticky">
-			<div class="container">
-				<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
-			</div>
-		</footer>
 	</main>	
+		<footer id="footer">
+<!--			<div class="container">-->
+				<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
+<!--			</div>-->
+		</footer>
+		
 </body>
 </html>

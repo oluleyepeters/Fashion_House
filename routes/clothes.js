@@ -86,7 +86,7 @@ router.get('/:id/view', (req,res) => {
 	})
 });
 	
-router.post('/', middleware.isloggedin , middleware.checkisAdmin ,upload.array('photos',3), (req,res,next) => {
+router.post('/', upload.array('photos',3), (req,res,next) => {
 	const photos = req.files;
 	console.log(req.files);	
 	let images = [];	
@@ -96,6 +96,7 @@ router.post('/', middleware.isloggedin , middleware.checkisAdmin ,upload.array('
 	const newCloth = {
 		name : req.body.name,
 		price : req.body.price,
+		category: req.body.category,
 		front_view : `/uploads/${images[0].filename}`,
 		back_view :	`/uploads/${images[1].filename}`,
 		 side_view : `/uploads/${images[2].filename}`,
@@ -104,11 +105,6 @@ router.post('/', middleware.isloggedin , middleware.checkisAdmin ,upload.array('
 	new db.Cloth(newCloth)
 	.save()
 	.then(cloth => {
-		webpush.setVapidDetails(
-			'mailto: oluleyepeters@gmail.com',
-			'BCzSkNNvQh2gpC_lgc3BFpanvbVBbCQTdrRX6WqZDZPE5n9KHCPSgtVCdiRtz909lYsyVsiyAWOvP6v7VT0vRkI',
-			'ght7f7W3gbXJ904BIP_F6DSvTkUnkZRwZLMw66K41sg'
-		);
 		console.log(cloth);
 		id = cloth._id;
 		return cloth;
@@ -116,30 +112,30 @@ router.post('/', middleware.isloggedin , middleware.checkisAdmin ,upload.array('
 	.then(cloth => {
 		db.Subscriptions.find({})
 		.then(subscriptions => {
-			console.log(subscriptions);
-			return subscriptions
-		})
-		.then(subscriptions => {
-			subscriptions.forEach(function(sub){
-				var pushConfig = {
-					endpoint : sub.endpoint,
-					keys: {
-						auth: sub.keys.auth,
-						p256dh: sub.keys.p256dh
+			if(subscriptions.length > 0){
+				subscriptions.forEach(function(sub){
+					var pushConfig = {
+						endpoint : sub.endpoint,
+						keys: {
+							auth: sub.keys.auth,
+							p256dh: sub.keys.p256dh
+						}
 					}
-				}
-			console.log(pushConfig)
-			webpush.sendNotification(pushConfig, JSON.stringify({
-				title: 'New Cloth', 
-				content:'New Cloth Added',
-				openUrl: 'http://localhost:80880/clothes/id/view'
-			}))
-			.catch((err) => console.log)					
+					console.log(pushConfig)
+					webpush.sendNotification(pushConfig, JSON.stringify({
+					title: 'New Cloth', 
+					content:'New Cloth Added',
+					openUrl: 'http://localhost:80880/clothes/id/view'
+				}))
 			})
-			res.redirect('http://localhost:8080/clothes/add');			
+			res.redirect('http://localhost:8080/clothes/add');							
+			}else{
+				res.redirect('http://localhost:8080/clothes/add');										
+			}		
 		})
+		.catch((err) => console.log)					
 	})
-	.catch(err => console.log)
+	.catch((err) => console.log)					
 })
 
 router.delete('/:id',  middleware.isloggedin , middleware.checkisAdmin ,(req,res) => {

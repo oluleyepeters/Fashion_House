@@ -13,10 +13,35 @@
 body{
 	background-color: #fff;
 /*	position: relative;*/
+	overflow-x: hidden;
 /*	min-height: 100%;	*/
 }
 
 .text-center{text-align: center}
+
+.add{
+	position: fixed;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: orange;
+	right: 10px;
+	bottom: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 100;
+}
+
+.add:hover{
+	background-color: red;
+	cursor: pointer;
+}
+
+.fa-plus{
+	font-size: 32px;
+	color: white;
+}
 
 /*.justify-center{justify-content: center}s*/
 
@@ -50,9 +75,9 @@ body{
 }
 
 main{
-	position: relative;
+/*	position: relative;*/
 	min-height: 100vh;
-	margin-bottom: 3rem;
+	margin-bottom: 2rem;
 }
 
 .category-box input{
@@ -104,13 +129,11 @@ nav{
 	background-color: #333;
 	color: white;
 	padding: 1.2rem;
+	padding-left: 0.6rem;
+	padding-right: 0.6rem;
 	display: flex;
-	z-index: 1;
 	justify-content: space-between;
-}
-
-nav li{
-	list-style: none;
+	z-index: 1;
 }
 
 nav li a{
@@ -119,16 +142,34 @@ nav li a{
 	color: white;
 }
 
-nav ul{
-	display: flex;
+a:hover{
+	cursor: pointer;
 }
 
-nav ul li{
+nav div{
+	display: flex;
+	height: 100%;
+	width: auto;
+/*	vertical-align: center;*/
+/*	align-self: center;*/
+}
+
+nav > div:first-child li{
+	margin-left: 1rem
+}
+
+nav > div:last-child li{
+	margin-right: 1rem
+}
+
+
+nav div li{
 	list-style: none;
+	align-self: center;	
 	margin: 0 0.4rem;
 }
 
-nav ul li a{
+nav div li a{
 	text-decoration-line: none;
 	color: #fff
 }
@@ -234,7 +275,7 @@ nav ul li a{
 .payment-proceed .category{
 	padding: 0.6rem 0.8rem;
 }
-
+ 
 .cart-image img{
 	width: 100%;
 	height: 100%;
@@ -256,15 +297,15 @@ nav ul li a{
 	display: flex;
 	justify-content: center;
 	background: #333;
-/*	position: absolute;*/
 	right: 0;
 	bottom: 0;
 	left: 0;
-	color: white
+	color: white;
 }
 
 #footer p{
-	padding: 1rem 0;
+	padding: 0.5rem 0;
+	text-align: center;	
 }
 
 
@@ -285,12 +326,12 @@ nav ul li a{
 		margin-bottom: 0.5rem;
 	}
 	
-	nav > ul:last-child{
+	nav > div:last-child{
 		text-align: center;
 		margin-top: 0.5rem;
 	}		
 	
-	nav > ul{
+	nav > div{ 
 		margin: auto;
 	}
 		
@@ -347,12 +388,12 @@ nav ul li a{
 		margin-bottom: 0.5rem;
 	}
 	
-	nav > ul:last-child{
+	nav > div:last-child{
 		text-align: center;
 		margin-top: 0.5rem;
 	}		
 	
-	nav > ul{
+	nav > div{
 		margin: auto;
 	}
 		
@@ -396,6 +437,11 @@ nav ul li a{
 		grid-template-columns: repeat(1, 1fr);
 		grid-gap: 1rem;
 	}
+
+	.fieldset-box{
+		display: flex;
+		flex-direction: column;
+	}
 	
 	nav{
 		display: flex;
@@ -407,12 +453,12 @@ nav ul li a{
 		margin-bottom: 0.5rem;
 	}
 	
-	nav > ul:last-child{
+	nav > div:last-child{
 		text-align: center;
 		margin-top: 0.5rem;
 	}		
 	
-	nav > ul{
+	nav >div{
 		margin: auto;
 	}
 	
@@ -470,12 +516,12 @@ nav ul li a{
 		margin-bottom: 0.5rem;
 	}
 	
-	nav > ul:last-child{
+	nav > div:last-child{
 		text-align: center;
 		margin-top: 0.5rem;
 	}		
 	
-	nav > ul{
+	nav > div{
 		margin: auto;
 	}
 	
