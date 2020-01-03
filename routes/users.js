@@ -86,6 +86,22 @@ router.get('/logout', (req,res) => {
 	res.redirect('/users/login')
 })
 
+router.get('/getUser/:id', middleware.isloggedin , (req,res) => {
+	db.User.findById(req.params.id)
+	.then(user => {
+		res.json(user);
+	})
+	.catch(console.log)
+})
+
+router.post('/:id/cart', middleware.isloggedin , (req,res) => {
+	db.User.findById(req.params.id)
+	.then(user => {
+		res.json(user);
+		console.log(user)
+	})
+	.catch(console.log)
+})
 
 router.post('/:id/addtoCart', middleware.isloggedin , (req,res) => {
 	db.User.findById(req.params.id)
@@ -99,15 +115,11 @@ router.post('/:id/addtoCart', middleware.isloggedin , (req,res) => {
 			side_view : req.body.side_view,
 			back_view : req.body.back_view
 		}
-		console.log(req.body.id)
-		console.log(req.body.id)
-		console.log(typeof user._id)
-		console.log(typeof req.params.id)
-		console.log(typeof req.body.id)		
 		user.cart.items.unshift(newCartItem)
 		user.save()
 		.then(user => {
 			console.log('Item Added')
+			res.redirect('back')
 		})
 	})
 	.catch(console.log)

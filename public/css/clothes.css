@@ -152,7 +152,7 @@ nav div{
 	width: auto;
 /*	vertical-align: center;*/
 /*	align-self: center;*/
-}
+ }
 
 nav > div:first-child li{
 	margin-left: 1rem
@@ -288,7 +288,7 @@ nav div li a{
 	justify-content: space-between;
 }
 
-.cart-header h3{
+.cart-header h4{
 	margin: auto;
 }
 
@@ -328,7 +328,7 @@ nav div li a{
 	
 	nav > div:last-child{
 		text-align: center;
-		margin-top: 0.5rem;
+		/*margin-top: 0.5rem;*/
 	}		
 	
 	nav > div{ 
@@ -390,7 +390,7 @@ nav div li a{
 	
 	nav > div:last-child{
 		text-align: center;
-		margin-top: 0.5rem;
+		/*margin-top: 0.5rem;*/
 	}		
 	
 	nav > div{
@@ -455,7 +455,7 @@ nav div li a{
 	
 	nav > div:last-child{
 		text-align: center;
-		margin-top: 0.5rem;
+		/*margin-top: 0.5rem;*/
 	}		
 	
 	nav >div{
@@ -518,7 +518,7 @@ nav div li a{
 	
 	nav > div:last-child{
 		text-align: center;
-		margin-top: 0.5rem;
+		/*margin-top: 0.5rem;*/
 	}		
 	
 	nav > div{

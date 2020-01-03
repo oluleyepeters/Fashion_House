@@ -2,8 +2,8 @@
 importScripts('/javascript/idb.js');
 importScripts('/javascript/utility.js')
 
-const pwaCache = 'pwa_Cache-1';
-const dynamicCache = 'pwa_Dynamic_cache-1';
+const pwaCache = 'pwa_Cache-2';
+const dynamicCache = 'pwa_Dynamic_cache-2';
 const staticFiles=[
 				'/',
 				'/offline',
@@ -84,6 +84,7 @@ function IsInArray(string, Array){
 	var url = `http://localhost:8080/clothes/searchClothes`;
 	var login = `http://localhost:8080/users/login`;
 	var logout = `http://localhost:8080/users/logout`;
+	var getUser = `http://localhost:8080/users/getUser`
 	var homePage = `http://localhost:8080`
 	var pwaCacheLength = pwaCache.length;
 	console.log(pwaCacheLength)
@@ -109,8 +110,15 @@ function IsInArray(string, Array){
 				return res;
 			})
 		);
-	}else if((e.request.url.indexOf(login) > -1) || (e.request.url.indexOf(logout) > -1)){
-		
+	}else if((e.request.url.includes(getUser))){
+		e.waitUntil(
+			caches.open(dynamicCache)
+				.then(function (cache) {
+					cache.delete(e.request)
+					return cache
+      			})   
+		)
+	}else if((e.request.url.indexOf(login) > -1) || (e.request.url.indexOf(logout) > -1) || (e.request.url.includes(getUser))){
 		e.waitUntil(
 			caches.keys()
 			.then((keys) => {

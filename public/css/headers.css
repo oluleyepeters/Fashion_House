@@ -100,7 +100,7 @@ nav li a{
 nav div{
 	display: flex;
 	height: 100%;
-/*	width: auto;*/
+	width: auto;
 /*	vertical-align: center;*/
 /*	align-self: center;*/
 }
@@ -279,13 +279,7 @@ main{
 }
 
 @media (max-width: 1200px){	
-	#all-clothes #clothes-container{
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-/*		grid-gap: 1rem;*/
-	}
 	nav{
-		padding: 0.5rem;
 		display: flex;
 		flex-direction: column;
 	}
@@ -295,9 +289,13 @@ main{
 		justify-content: center;
 	}
 	
-	nav > div > li{
+	nav > div:last-child{
 		text-align: center;
 		margin-bottom: 0.2rem;
+	}	
+
+	nav > div{ 
+		margin: auto;
 	}	
 	
 	footer p{
@@ -350,7 +348,6 @@ main{
 
 @media (max-width: 768px){	
 	nav{
-		padding: 0.5rem;
 		display: flex;
 		flex-direction: column;
 	}
@@ -360,13 +357,13 @@ main{
 		justify-content: center;
 	}
 	
-	nav > div > li{
+	nav > div:last-child{
 		text-align: center;
 		margin-bottom: 0.2rem;
 	}	
-	
-	footer p{
-		text-align: center;
+
+	nav > div{ 
+		margin: auto;
 	}
 		
 	.container{
@@ -431,7 +428,6 @@ main{
 	}
 
 	nav{
-		padding: 0.5rem;
 		display: flex;
 		flex-direction: column;
 	}
@@ -441,10 +437,14 @@ main{
 		justify-content: center;
 	}
 	
-	nav > div > li{
+	nav > div:last-child{
 		text-align: center;
 		margin-bottom: 0.2rem;
 	}	
+
+	nav > div{ 
+		margin: auto;
+	}
 	
 	footer p{
 		text-align: center;
@@ -506,7 +506,6 @@ main{
 	}
 	
 	nav{
-		padding: 0.5rem;
 		display: flex;
 		flex-direction: column;
 	}
@@ -516,9 +515,13 @@ main{
 		justify-content: center;
 	}
 	
-	nav > div > li{
+	nav > div:last-child{
 		text-align: center;
 		margin-bottom: 0.2rem;
+	}	
+
+	nav > div{ 
+		margin: auto;
 	}	
 	
 	footer p{

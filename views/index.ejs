@@ -1,10 +1,3 @@
-<% var totalPrice = 0 %>
-<% if(user && user.cart.items.length > 0){ %>
-	<% user.cart.items.forEach(function(item , index){ %>
-		<% totalPrice += parseInt(item.price) %>	
-	<% }) %>
-<% } %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,22 +33,22 @@
 	<nav class="nav">
 	<div>
 		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		
-		</div>
+	</div>
 		<div>
 			<% if(!user){ %>
 				<li class="action-gray"><a href="/users/login">Login</a></li>
 				<li class="action-red"><a href="/users/register">Register</a></li>
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.userName %></a></li>
-				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart" /></a></li>
-<!--				<span><`#`+totalPrice%></span>		-->
+				<li><a href="#" class="id hidden"><%=user._id %></a></li>				
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
 				<li><a href="/users/myOrders">Orders</a></li>	
 			<%} else {%>
 				<li><a href="#"><%=user.userName %></a></li>
+				<li><a href="#" class="id hidden"><%=user._id %></a></li>				
 				<li><a href="/orders/allorder">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
 			<% } %>					
 		</div>
 		<div>
@@ -93,48 +86,23 @@
 			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
 <!--		</div>-->
 	</footer>
-		<% if(user && user.cart.items.length > 0){ %>
-			<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart">
-				<div class="cart-header">
-					<h3 class="text-center">My Cart</h3>
-					<span class="close">&times;</span>
-				</div>
-				<% user.cart.items.forEach(function(item , index){ %>
-					<article class="cart-card">
-						<div class="cart-image">
-							<img src="<%=item.front_view %>" class="p1" alt="info"></div>
-						<div class="category-left cart-box">
-							<p class="category">Durojaye Peter</p>					
-							<p class="category"><%= item.price %></p>				
-						</div>				
-					</article>
-					<input type="text" class="hidden" name="items[<%=index%>][name]" value="<%= item.name %>">
-					<input type="text" class="hidden" name="items[<%=index%>][price]" value="<%= item.price %>">
-					<input type="text" class="hidden" name="items[<%=index%>][id]" value="<%= item.id %>">
-					<input type="text" class="hidden" name="items[<%=index%>][front_view]" value="<%= item.front_view %>">
-					<input type="text" class="hidden" name="items[<%=index%>][side_view]" value="<%= item.side_view %>">
-					<input type="text" class="hidden" name="items[<%=index%>][back_view]" value="<%= item.back_view %>">
-				<% }) %>	
-				<div class="payment-proceed">
-					<button type="submit" class="category">Place Order</button>
-					<p class="category"><%= parseFloat(totalPrice) %></p>
-				</div>
-			</form>
-		<% } else {%>
-			<div class="cart payment-container">
-				<div class="cart-header">
-					<h3 class="text-center">You have no Item In your Cart</h3>
-					<span class="close">&times;</span>
-				</div>
-			</div>
-		<% } %>
+	<% if(user){%>
+		<form action="/users/<%=user._id%>/order" method="post" class="payment-container cart filledCart">
+			
+		</form>
+	
+	<% }else{ %>
+		<div class="cart payment-container emptyCart">
+			
+	 	</div>			
+	<% } %>
+		
 	<script src="/javascript/jquery-3.3.1.min.js"></script>	
 	<script src="/javascript/app.js"></script>	
 	<script type="text/javascript" src="/javascript/idb.js"></script>
 				
 	<% if(user) {%>
 		<script src="/javascript/cart.js"></script>
-<!--		<script type="text/javascript" src="/javascript/enableNotofication.js"></script>		-->
 	<% } %>
 </body>
 </html>

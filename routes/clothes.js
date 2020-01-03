@@ -128,9 +128,9 @@ router.post('/', upload.array('photos',3), (req,res,next) => {
 					openUrl: 'http://localhost:80880/clothes/id/view'
 				}))
 			})
-			res.redirect('http://localhost:8080/clothes/add');							
+			res.redirect('/clothes/add');							
 			}else{
-				res.redirect('http://localhost:8080/clothes/add');										
+				res.redirect('/clothes/add');										
 			}		
 		})
 		.catch((err) => console.log)					
@@ -148,7 +148,7 @@ router.delete('/:id',  middleware.isloggedin , middleware.checkisAdmin ,(req,res
 //Searching for clothes
 //By name
 router.get('/searchClothes/:name', (req,res) => {
-	db.Cloth.find({'name': req.params.name})
+	db.Cloth.find({'category': req.params.name})
 	.then(clothes => {
 		res.json(clothes)
 	})

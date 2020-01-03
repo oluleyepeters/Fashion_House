@@ -3,6 +3,8 @@ var searchBtn = document.querySelector('.category');
 var conditionBtn = document.querySelectorAll('.price');
 var conditionChecked = document.querySelectorAll("input[type='checkbox']");
 var clothes = [];
+var searchedCloth = [];
+var searchResult = [];
 var state = [];
 var newCloth = [];
 
@@ -14,7 +16,7 @@ const renderClothe = cloth => {
 											<div class="category"><a href="">${cloth.name}</a></div>	
 										</div>
 									<div class="category-left">
-										<div class="category"><a href="">Category</a></div>				
+										<div class="category"><a href="">${cloth.category}</a></div>				
 									</div>
 								<div class="category "><a href="/clothes/${cloth._id}/view">View</a></div>
 							</div>
@@ -73,20 +75,26 @@ const conditioning = (state) => {
 				condition.addEventListener('change', (e) => {
 						conditionChecked.forEach(condition =>{
 							if(e.target.checked){
-								if(parseInt(e.target.value) === 1500){
+								console.log(parseInt(e.target.value))
+								console.log(state)
+								if((parseInt(e.target.value)) === 1500){
 									state.forEach(cloth => {
 										if(cloth.price <= 1500){
 											if(!(newCloth.includes(cloth))){
 												newCloth.push(cloth)
 											}
 										}
-									})
+									}) 
 								}
 								else if(parseInt(e.target.value) === 2500){
+									console.log('value')
+									console.log(state)
 									state.forEach(cloth => {
 										if((cloth.price) <= 2500 ){
+											console.log(cloth)
 											if(!(newCloth.includes(cloth))){
 												newCloth.push(cloth)
+												console.log(newCloth)
 											}									
 										} 
 									})
@@ -99,43 +107,7 @@ const conditioning = (state) => {
 											}									
 										} 
 									})
-								} 								
-								else if(e.target.value === 'Pants'){
-									state.forEach(cloth => {
-										if(cloth.category === 'Pants'){
-											if(!(newCloth.includes(cloth))){
-												newCloth.push(cloth)
-											}									
-										} 
-									})
-								}
-								else if(e.target.value === 'Skirts'){
-									state.forEach(cloth => {
-										if(cloth.category === 'Skirts'){
-											if(!(newCloth.includes(cloth))){
-												newCloth.push(cloth)
-											}									
-										} 
-									})
-								}								
-								else if(e.target.value === 'Blazzers'){
-									state.forEach(cloth => {
-										if(cloth.category === 'Blazzers'){
-											if(!(newCloth.includes(cloth))){
-												newCloth.push(cloth)
-											}									
-										} 
-									})
-								}								
-								else if(e.target.value === 'Gowns'){
-									state.forEach(cloth => {
-										if(cloth.category === 'Gowns'){
-											if(!(newCloth.includes(cloth))){
-												newCloth.push(cloth)
-											}									
-										} 
-									})
-								}																					
+								}																		 								
 							}else{
 								if(!(e.target.checked)){
 							 		if(parseInt(e.target.value) === 1500){
@@ -157,47 +129,15 @@ const conditioning = (state) => {
 								 		})
 								 	}else if(parseInt(e.target.value) === 2501){
 							 			state.forEach(cloth => {
-							 				if((cloth.price > 2501)){
+							 				if((cloth.price > 2500)){
 							 					if((newCloth.includes(cloth))){
 							 						newCloth.splice(newCloth.indexOf(cloth), 1)
 								 				}									
 								 			}
 								 		})
-								 	}else if(parseInt(e.target.value) === 'Pants'){
-									 	state.forEach(cloth => {
-									 		if((cloth.category === 'Pants')){
-									 			if((newCloth.includes(cloth))){
-								 				newCloth.splice(newCloth.indexOf(cloth), 1)
-								 				}									
-									 		}
-									 	})
-									}else if(parseInt(e.target.value) === 'Blazzers'){
-									 	state.forEach(cloth => {
-									 		if((cloth.category !== 'Blazzers')){
-									 			if((newCloth.includes(cloth))){
-									 				newCloth.splice(newCloth.indexOf(cloth), 1)
-								 				}									
-									 		}
-									 	})
-									}else if(parseInt(e.target.value) === 'Gowns'){
-									 	state.forEach(cloth => {
-									 		if((cloth.category !== 'Gowns')){
-									 			if((newCloth.includes(cloth))){
-									 				newCloth.splice(newCloth.indexOf(cloth), 1)
-								 				}									
-									 		}
-									 	})
-									}else if(parseInt(e.target.value) === 'Skirts'){
-									 	state.forEach(cloth => {
-									 		if((cloth.category !== 'Skirts')){
-									 			if((newCloth.includes(cloth))){
-									 				newCloth.splice(newCloth.indexOf(cloth), 1)
-								 				}									
-									 		}
-									 	})
-									}									
+								 	}
 								}
-							}										
+							}											
 						})
 						if(newCloth.length > 0){
 							renderClothes(newCloth)
@@ -209,21 +149,24 @@ const conditioning = (state) => {
         							console.log(goToPage)
 	       							renderClothes(newCloth, goToPage);
     							}
-							})																				
+							})																		
 						}else{
-							renderClothes(clothes)
-							document.querySelector('body').addEventListener('click', e => {
-								console.log('clicked')
-    							if (e.target.matches('.category, .btn-inline')) {
-									console.log('clicked2')
-        							const goToPage = parseInt(e.target.dataset.goto, 10);
-        							console.log(goToPage)
-	       							renderClothes(clothes, goToPage);
-    							}
-							})																											
+							setTimeout(() => {
+								renderClothes(state)
+								document.querySelector('body').addEventListener('click', e => {
+									console.log('clicked')
+    								if (e.target.matches('.category, .btn-inline')) {
+										console.log('clicked2')
+										const goToPage = parseInt(e.target.dataset.goto, 10);
+        								console.log(goToPage)
+	       								renderClothes(clothes, goToPage);
+    								}
+								})																
+							}, 1500)
 						}
 					})
 				})
+			
 		}
 
 $(document).ready(() => {
@@ -242,27 +185,28 @@ $(document).ready(() => {
 		}) 
 		.then(data => {
 			data.forEach(data => {
-			state.push(data)
-		})
-		var self;
+				searchResult.push(data)
+			})
 			document.querySelector('body').addEventListener('click', e => {
     			if (e.target.classList.contains('btn-inline')) {
         			const goToPage = parseInt(e.target.dataset.goto, 10);
         			renderClothes(data, goToPage);
     			}
 			})
-			return state;
+			return searchResult;
 		})
-		.then(state => {
-			conditioning(state);
+		.then(searchResult => {
+			console.log(searchResult)
+			conditioning(searchResult);
 		})
 		.catch(err => console.log)
 })		
 
 searchBtn.addEventListener('click', function(e){	
+	if(search.value !== ``){
+	console.log(searchResult)
 	var url = `http://localhost:8080/clothes/searchClothes/${search.value}`;	
 	var networkDataReceived = false;
-	document.querySelector('#clothes-container').innerHTML= ''		
 	fetch(url)
 		.then(res => {
 			return res.json()
@@ -270,28 +214,131 @@ searchBtn.addEventListener('click', function(e){
 		.then(data => {
 			networkDataReceived = true;
 			console.log('From web', data)
-			renderClothes(data);
-			// state.clothes = data;
+			if(data.length === 0){
+					document.querySelector('#clothes-container').innerHTML = '<p>No item matches your searchs';	
+			}else{
+				renderClothes(data);	
+			}
 			return data
 		})
 		.then(data => {
-			state=[];
-			// var self = data;
 			data.forEach(data => {
 				state.push(data)
 			})
-			// state = data;
 			document.querySelector('body').addEventListener('click', e => {
 				console.log('clicked')
     			if (e.target.classList.contains('btn-inline')) {
         			const goToPage = parseInt(e.target.dataset.goto, 10);
-        			renderClothes(self, goToPage);
+        			renderClothes(data, goToPage);
     			}
 			})
 			return state;
 		})
-		.then( state  => {
-			conditioning(state);
+		.then(state  => {
+			document.querySelectorAll('.condition').forEach(condition => {
+				condition.addEventListener('change', (e) => {
+						conditionChecked.forEach(condition =>{
+							if(e.target.checked){
+								console.log(parseInt(e.target.value))
+								if((parseInt(e.target.value)) === 1500){
+									state.forEach(cloth => {
+										if(cloth.price <= 1500){
+											if(!(searchedCloth.includes(cloth))){
+												searchedCloth.push(cloth)
+											}
+										}
+									}) 
+								}
+								else if(parseInt(e.target.value) === 2500){
+									console.log('value')
+									console.log(state)
+									state.forEach(cloth => {
+										if((cloth.price) <= 2500 ){
+											console.log(cloth)
+											if(!(searchedCloth.includes(cloth))){
+												searchedCloth.push(cloth)
+												console.log(searchedCloth)
+											}									
+										} 
+									})
+								} 
+								else if(parseInt(e.target.value) === 2501){
+									state.forEach(cloth => {
+										if((cloth.price) > 2500 ){
+											if(!(searchedCloth.includes(cloth))){
+												searchedCloth.push(cloth)
+											}									
+										} 
+									})
+								}																		 								
+							}else{
+								if(!(e.target.checked)){
+							 		if(parseInt(e.target.value) === 1500){
+							 			state.forEach(cloth => {
+							 				if(cloth.price <= 1500){
+							 					if((searchedCloth.includes(cloth))){
+							 						searchedCloth.splice(searchedCloth.indexOf(cloth), 1)
+							 						// console.log(clothes)
+							 					}
+							 				}
+							 			})
+							 		}else if(parseInt(e.target.value) === 2500){
+							 		state.forEach(cloth => {
+							 				if((cloth.price <= 2500)){
+							 					if((searchedCloth.includes(cloth))){
+							 						searchedCloth.splice(searchedCloth.indexOf(cloth), 1)
+								 				}									
+								 			}
+								 		})
+								 	}else if(parseInt(e.target.value) === 2501){
+							 			state.forEach(cloth => {
+							 				if((cloth.price > 2500)){
+							 					if((searchedCloth.includes(cloth))){
+							 						searchedCloth.splice(searchedCloth.indexOf(cloth), 1)
+								 				}									
+								 			}
+								 		})
+								 	}
+								}
+							}											
+						})
+						if(searchedCloth.length > 0){
+							renderClothes(searchedCloth)
+							document.querySelector('body').addEventListener('click', e => {
+								console.log('clicked')
+    							if (e.target.matches('.category, .btn-inline')) {
+									console.log('clicked2')
+        							const goToPage = parseInt(e.target.dataset.goto, 10);
+        							console.log(goToPage)
+	       							renderClothes(searchedCloth, goToPage);
+    							}
+							})																		
+						}else{
+							setTimeout(() => {
+								renderClothes(state)
+								document.querySelector('body').addEventListener('click', e => {
+									console.log('clicked')
+    								if (e.target.matches('.category, .btn-inline')) {
+										console.log('clicked2')
+										const goToPage = parseInt(e.target.dataset.goto, 10);
+	       								renderClothes(state, goToPage);
+    								}
+								})																
+							}, 1500)
+						}
+					})
+				})
+			return state;
+		})
+		.then( () => {
+			search.addEventListener( 'keyup' , e => {
+				console.log(e.target.value)
+				if(search.value === ''){
+					state = [];
+					searchedCloth = []; 
+					renderClothes(clothes)
+				}
+			})
 		})
 		.catch(err => console.log)	
 	
@@ -300,15 +347,20 @@ searchBtn.addEventListener('click', function(e){
 	if('indexedDB' in window){
 		readAllData('clothes')
 		.then(data => {
-			networkDataReceived = true;
-			console.log('From web', data)
-			renderClothes(data);
-			// state.clothes = data;
-			return data
+			if(!networkDataReceived){
+				if(data.length === 0){
+					document.querySelector('#clothes-container').innerHTML = '<p>No item matches your searchs';	
+				}else{
+					renderClothes(data);	
+				}
+				console.log('From Indexed', data)
+				renderClothes(data)
+			}			
+			return data			
 		})
 		.then(data => {
 			// var self = data;
-			state = [];
+			state.forEach
 			data.forEach(data => {
 				state.push(data)
 			})
@@ -317,15 +369,119 @@ searchBtn.addEventListener('click', function(e){
 				console.log('clicked')
     			if (e.target.classList.contains('btn-inline')) {
         			const goToPage = parseInt(e.target.dataset.goto, 10);
-        			renderClothes(self, goToPage);
+        			renderClothes(data, goToPage);
     			}
 			})
+			return state
+		})
+		.then(state  => {
+			document.querySelectorAll('.condition').forEach(condition => {
+				condition.addEventListener('change', (e) => {
+						conditionChecked.forEach(condition =>{
+							if(e.target.checked){
+								console.log(parseInt(e.target.value))
+								if((parseInt(e.target.value)) === 1500){
+									state.forEach(cloth => {
+										if(cloth.price <= 1500){
+											if(!(searchedCloth.includes(cloth))){
+												searchedCloth.push(cloth)
+											}
+										}
+									}) 
+								}
+								else if(parseInt(e.target.value) === 2500){
+									console.log('value')
+									console.log(state)
+									state.forEach(cloth => {
+										if((cloth.price) <= 2500 ){
+											console.log(cloth)
+											if(!(searchedCloth.includes(cloth))){
+												searchedCloth.push(cloth)
+												console.log(searchedCloth)
+											}									
+										} 
+									})
+								} 
+								else if(parseInt(e.target.value) === 2501){
+									state.forEach(cloth => {
+										if((cloth.price) > 2500 ){
+											if(!(searchedCloth.includes(cloth))){
+												searchedCloth.push(cloth)
+											}									
+										} 
+									})
+								}																		 								
+							}else{
+								if(!(e.target.checked)){
+							 		if(parseInt(e.target.value) === 1500){
+							 			state.forEach(cloth => {
+							 				if(cloth.price <= 1500){
+							 					if((searchedCloth.includes(cloth))){
+							 						searchedCloth.splice(searchedCloth.indexOf(cloth), 1)
+							 						// console.log(clothes)
+							 					}
+							 				}
+							 			})
+							 		}else if(parseInt(e.target.value) === 2500){
+							 		state.forEach(cloth => {
+							 				if((cloth.price <= 2500)){
+							 					if((searchedCloth.includes(cloth))){
+							 						searchedCloth.splice(searchedCloth.indexOf(cloth), 1)
+								 				}									
+								 			}
+								 		})
+								 	}else if(parseInt(e.target.value) === 2501){
+							 			state.forEach(cloth => {
+							 				if((cloth.price > 2500)){
+							 					if((searchedCloth.includes(cloth))){
+							 						searchedCloth.splice(searchedCloth.indexOf(cloth), 1)
+								 				}									
+								 			}
+								 		})
+								 	}
+								}
+							}											
+						})
+						if(searchedCloth.length > 0){
+							renderClothes(searchedCloth)
+							document.querySelector('body').addEventListener('click', e => {
+								console.log('clicked')
+    							if (e.target.matches('.category, .btn-inline')) {
+									console.log('clicked2')
+        							const goToPage = parseInt(e.target.dataset.goto, 10);
+        							console.log(goToPage)
+	       							renderClothes(searchedCloth, goToPage);
+    							}
+							})																		
+						}else{
+							setTimeout(() => {
+								renderClothes(state)
+								document.querySelector('body').addEventListener('click', e => {
+									console.log('clicked')
+    								if (e.target.matches('.category, .btn-inline')) {
+										console.log('clicked2')
+										const goToPage = parseInt(e.target.dataset.goto, 10);
+	       								renderClothes(state, goToPage);
+    								}
+								})																
+							}, 1500)
+						}
+					})
+				})
 			return state;
 		})
-		.then( state  => {
-			conditioning(state);
+		.then( () => {
+			search.addEventListener( 'keyup' , e => {
+				console.log(e.target.value)
+				if(search.value === ''){
+					state = [];
+					searchedCloth = []; 
+					renderClothes(clothes)
+				}
+			})
 		})
 		.catch(err => console.log)		
 	}
+	}
 	e.preventDefault();	
-});
+});	

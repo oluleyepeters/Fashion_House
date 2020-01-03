@@ -4,5 +4,3 @@ module.exports={
 	public_vapid_Key: process.env.Vapid_Public,
 	private_vapid_Key: process.env.Vapid_Private,	
 };
-
-//mongo ds257668.mlab.com:57668/fashion_house -u <dbuser> -p <dbpassword>
