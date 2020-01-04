@@ -46,7 +46,7 @@
 			<%} else {%>
 				<li><a href="#"><%=user.userName %></a></li>
 				<li><a href="#" class="id hidden"><%=user._id %></a></li>				
-				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/orders/allorders">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
 				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>
 			<% } %>					
@@ -98,9 +98,9 @@
 	<% } %>
 		
 	<script src="/javascript/jquery-3.3.1.min.js"></script>	
-	<script src="/javascript/app.js"></script>	
 	<script type="text/javascript" src="/javascript/idb.js"></script>
-				
+	<script src="/javascript/app.js"></script>	
+					
 	<% if(user) {%>
 		<script src="/javascript/cart.js"></script>
 	<% } %>

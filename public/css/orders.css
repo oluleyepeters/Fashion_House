@@ -138,7 +138,7 @@ nav li a{
 nav div{
 	display: flex;
 	height: 100%;
-/*	width: auto;*/
+	width: auto;
 /*	vertical-align: center;*/
 /*	align-self: center;*/
 }
@@ -319,17 +319,15 @@ nav div li a{
 		flex-direction: column;
 	}
 	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
-	}
 	
 	nav > div:last-child{
 		text-align: center;
-		margin-top: 0.5rem;
+		margin-bottom: 0.2rem;
 	}		
 	
 	nav > div{ 
+		display: flex;
+		justify-content: center;
 		margin: auto;
 	}
 		
@@ -381,17 +379,15 @@ nav div li a{
 		flex-direction: column;
 	}
 	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
-	}
 	
 	nav > div:last-child{
 		text-align: center;
-		margin-top: 0.5rem;
+		margin-bottom: 0.2rem;
 	}		
 	
-	nav > div{
+	nav > div{ 
+		display: flex;
+		justify-content: center;
 		margin: auto;
 	}
 		
@@ -441,17 +437,15 @@ nav div li a{
 		flex-direction: column;
 	}
 	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
-	}
 	
 	nav > div:last-child{
 		text-align: center;
-		margin-top: 0.5rem;
+		margin-bottom: 0.2rem;
 	}		
 	
-	nav >div{
+	nav > div{ 
+		display: flex;
+		justify-content: center;
 		margin: auto;
 	}
 	
@@ -504,17 +498,15 @@ nav div li a{
 		flex-direction: column;
 	}
 	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
-	}
 	
 	nav > div:last-child{
 		text-align: center;
-		margin-top: 0.5rem;
+		margin-bottom: 0.2rem;
 	}		
 	
-	nav > div{
+	nav > div{ 
+		display: flex;
+		justify-content: center;
 		margin: auto;
 	}
 	

@@ -51,6 +51,11 @@ input{
 	z-index: 100;
 }
 
+.add:hover{
+	background-color: red;
+	cursor: pointer;
+}
+
 .fa-plus{
 	font-size: 32px;
 	color: white;
@@ -96,7 +101,7 @@ nav li a{
 	text-decoration: none;
 	color: white;
 }
-
+ 
 nav div{
 	display: flex;
 	height: 100%;

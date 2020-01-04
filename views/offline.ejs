@@ -34,10 +34,10 @@
 		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
 		
 	</div>
-		<div>
-			<% if(!user){ %>
-				<li class="action-gray"><a href="/users/login">Login</a></li>
-				<li class="action-red"><a href="/users/register">Register</a></li>
+		<div>		
+			<% if(user){ %>
+				<li> <a class="enable">Enable Notification</a></li>
+				<li> <a href="/users/logout">Logout</a></li>
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.userName %></a></li>
 				<li><a href="#" class="id hidden"><%=user._id %></a></li>				
@@ -46,17 +46,11 @@
 			<%} else {%>
 				<li><a href="#"><%=user.userName %></a></li>
 				<li><a href="#" class="id hidden"><%=user._id %></a></li>				
-				<li><a href="/orders/allorder">All Orders</a></li>
+				<li><a href="/orders/allorders">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
+				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>	
 			<% } %>					
 		</div>
-		<div>
-			<% if(user){ %>
-				<li> <a class="enable">Enable Notification</a></li>
-				<li> <a href="/users/logout">Logout</a></li>
-			<% } %>
-		</div>		
 	</nav>
 	<main style="min-height:95vh; margin-top:1.2rem">
 		<div class="container">

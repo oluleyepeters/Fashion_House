@@ -2,13 +2,15 @@ var deferredPrompt;
 
 //  Progressive Enhancement (SW supported)
 // if ('serviceWorker' in navigator) {
-if (navigator.serviceWorker) {
+if ('serviceWorker' in navigator) {
 	
   // Register the SW
-  	navigator.serviceWorker.register('/sw.js', {scope:'/'})
+  	// navigator.serviceWorker.register('/sw.js', {scope:'/'})
+  	navigator.serviceWorker
+  	.register('/sw.js')
 	.then((registration) => {
 		console.log('Service Worker Registered')
-  	}).catch(console.log)
+  	}).catch(err => console.log)
 }
 
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -24,6 +26,7 @@ console.log(add)
 add.addEventListener('click', requestPermission);
 
 function requestPermission(){
+	console.log('clicked')
 	if(deferredPrompt !== undefined){
 		deferredPrompt.prompt();
 		deferredPrompt.userChoice
@@ -36,6 +39,8 @@ function requestPermission(){
 			}
 		})
 		deferredPrompt = null;
+	}else{
+		console.log('beforeinstallprompt is not yet added')
 	}
 }
 
