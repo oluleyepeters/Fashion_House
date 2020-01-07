@@ -13,7 +13,7 @@ middlewareObj.isloggedin=function (req,res,next){
 middlewareObj.checkisAdmin=function(req,res,next){
     if(req.isAuthenticated()){
         db.User.findById(req.params.id, (err,admin) => {
-        	if(admin.type !== 'User'){
+        	if(admin.type === 'Admin'){
          		next();   
 			}else{
 				req.flash('error','You dont Have The permission')

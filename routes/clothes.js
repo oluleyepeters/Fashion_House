@@ -61,7 +61,7 @@ router.get('/clothes', (req,res) => {
 });
 
 
-router.get('/add', (req,res) => {
+router.get('/add', middleware.isloggedin , middleware.checkisAdmin , (req,res) => {
 	res.render('clothes/add',{
 	});
 });
@@ -86,7 +86,7 @@ router.get('/:id/view', (req,res) => {
 	})
 });
 	
-router.post('/', upload.array('photos',3), (req,res,next) => {
+router.post('/', upload.array('photos',3), middleware.isloggedin , middleware.checkisAdmin, (req,res,next) => {
 	const photos = req.files;
 	console.log(req.files);	
 	let images = [];	

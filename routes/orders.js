@@ -23,7 +23,7 @@ const middleware = require('../middleware')
 //	})
 //});
 
-router.get('/allOrders', (req,res) => {
+router.get('/allOrders',middleware.isloggedin , middleware.checkisAdmin, (req,res) => {
 	db.Orders.find({})
 	.then(orders => {
 		res.render('admin/index', {
@@ -32,7 +32,7 @@ router.get('/allOrders', (req,res) => {
 	})
 });
 
-router.get('/allOrders/:id',(req,res) => {
+router.get('/allOrders/:id', middleware.isloggedin , middleware.checkisAdmin(req,res) => {
 	db.Orders.findById(req.params.id)
 	.then(order => {
 		res.render('admin/order', {

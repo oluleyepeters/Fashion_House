@@ -17,7 +17,7 @@ const OrderSchema = new Schema({
 			back_view:{type : String}
 		}]
 	},
-	deliveresd: {
+	delivered: {
 		type: String,
 		default : 'No'
 	},
