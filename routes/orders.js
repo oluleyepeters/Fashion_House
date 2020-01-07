@@ -32,7 +32,7 @@ router.get('/allOrders',middleware.isloggedin , middleware.checkisAdmin, (req,re
 	})
 });
 
-router.get('/allOrders/:id', middleware.isloggedin , middleware.checkisAdmin(req,res) => {
+router.get('/allOrders/:id', middleware.isloggedin , middleware.checkisAdmin, (req,res) => {
 	db.Orders.findById(req.params.id)
 	.then(order => {
 		res.render('admin/order', {
