@@ -170,7 +170,7 @@ const conditioning = (state) => {
 		}
 
 $(document).ready(() => {
-	fetch(`http://localhost:8080/clothes/clothes`)
+	fetch(`https://herbeifashion.herokuapp.com/clothes/clothes`)
 		.then(res => {
 			return res.json()
 		})
@@ -205,7 +205,7 @@ $(document).ready(() => {
 searchBtn.addEventListener('click', function(e){	
 	if(search.value !== ``){
 	console.log(searchResult)
-	var url = `http://localhost:8080/clothes/searchClothes/${search.value}`;	
+	var url = `https://herbeifashion.herokuapp.com/clothes/searchClothes/${search.value}`;	
 	var networkDataReceived = false;
 	fetch(url)
 		.then(res => {

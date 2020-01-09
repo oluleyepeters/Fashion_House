@@ -81,11 +81,11 @@ function IsInArray(string, Array){
 //Cache and Network
 //Events emitted any time a page, item is fetched
  self.addEventListener('fetch', (e) => {
-	var url = `http://localhost:8080/clothes/searchClothes`;
-	var login = `http://localhost:8080/users/login`;
-	var logout = `http://localhost:8080/users/logout`;
-	var getUser = `http://localhost:8080/users/getUser`
-	var homePage = `http://localhost:8080`
+	var url = `https://herbeifashion.herokuapp.com/clothes/searchClothes`;
+	var login = `https://herbeifashion.herokuapp.com/users/login`;
+	var logout = `https://herbeifashion.herokuapp.com/users/logout`;
+	var getUser = `https://herbeifashion.herokuapp.com/users/getUser`
+	var homePage = `https://herbeifashion.herokuapp.com`
 	var pwaCacheLength = pwaCache.length;
 	console.log(pwaCacheLength)
 	if(e.request.url.includes(url)){
