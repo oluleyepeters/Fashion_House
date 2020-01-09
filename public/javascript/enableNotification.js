@@ -73,7 +73,7 @@ function configPushSub(){
 				})
 				.then((newSub) => {
 					console.log('Received Push Subscription', JSON.stringify(newSub));
-					return fetch('http://localhost:8080/subscribe', {
+					return fetch('https://herbeifashion.herokuapp.com/subscribe', {
 						method:'POST',
 						headers:{
 							'Content-Type':'application/json',

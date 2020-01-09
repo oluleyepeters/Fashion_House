@@ -200,7 +200,7 @@ self.addEventListener('notification',function(e){
 						client.navigate(notification.data.url);
 						client.focus();
 					}else{
-						clients.openWindow('http://location:8080')
+						clients.openWindow('https://herbeifashion.herokuapp.com')
 					}
 					notification.close();	
 				})

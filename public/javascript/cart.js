@@ -51,7 +51,7 @@ const renderItems = (user) => {
 
 cartBtn.addEventListener('click', e => {
 	console.log(userId)
-	var url = `http://localhost:8080/users/getUser/${userId}`
+	var url = `http://herbeifashion.herokuapp.com/users/getUser/${userId}`
 	fetch(url)
 	.then(res => {
 		return res.json()
