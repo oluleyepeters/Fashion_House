@@ -12,7 +12,7 @@ middlewareObj.isloggedin=function (req,res,next){
 
 middlewareObj.checkisAdmin=function(req,res,next){
     if(req.isAuthenticated()){
-        db.User.findById(req.params.id, (err,admin) => {
+        db.User.findById(req.user._id, (err,admin) => {
         	if(admin.type === 'Admin'){
          		next();   
 			}else{

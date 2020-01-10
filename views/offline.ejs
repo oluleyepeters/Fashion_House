@@ -35,9 +35,9 @@
 		
 	</div>
 		<div>		
-			<% if(user){ %>
-				<li> <a class="enable">Enable Notification</a></li>
-				<li> <a href="/users/logout">Logout</a></li>
+			<% if(! user){ %>
+				<li class="action-gray"><a href="/users/login">Login</a></li>
+				<li class="action-red"><a href="/users/register">Register</a></li>
 			<% } else if(user.type === "User") { %> 
 				<li><a href="#"><%=user.userName %></a></li>
 				<li><a href="#" class="id hidden"><%=user._id %></a></li>				
@@ -49,6 +49,9 @@
 				<li><a href="/orders/allorders">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
 				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>	
+			<% } if(user){ %>
+				<li> <a class="enable">Enable Notification</a></li>
+				<li> <a href="/users/logout">Logout</a></li>
 			<% } %>					
 		</div>
 	</nav>

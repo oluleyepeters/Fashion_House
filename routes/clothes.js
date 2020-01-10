@@ -125,7 +125,7 @@ router.post('/', upload.array('photos',3), middleware.isloggedin , middleware.ch
 					webpush.sendNotification(pushConfig, JSON.stringify({
 					title: 'New Cloth', 
 					content:'New Cloth Added',
-					openUrl: 'http://localhost:8080/clothes/id/view'
+					openUrl: 'https://herbeifashion.herokuapp.com/clothes/id/view'
 				}))
 			})
 			res.redirect('/clothes/add');							
