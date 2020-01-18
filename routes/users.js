@@ -171,6 +171,4 @@ router.get('/myOrders/:id', middleware.isloggedin ,(req,res) => {
 	.catch(console.log)
 })
 
-
-
 module.exports = router;
