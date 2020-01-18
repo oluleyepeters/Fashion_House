@@ -43,4 +43,3 @@ function requestPermission(){
 		console.log('beforeinstallprompt is not yet added')
 	}
 }
-

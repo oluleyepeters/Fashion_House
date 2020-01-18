@@ -16,6 +16,14 @@
 			<li><a href="/users/register">Register</a></li>
 		</ul>
 	</nav>
+	<!-- Showing erro or success messages -->
+	<div class="container msg-box">
+		<% if(error && error.length > 0) {%>
+			<div class="mt-1 alert alert-danger center" role="alert"><strong><%=error%></strong></div>
+		<% }else if(success && success.length > 0) {%>
+			<div class="mt-1 alert alert-success center" role="alert"><strong><%=success%></strong></div>
+		<% } %>
+	</div>	
 	<main>
 		<div class="container">
 			<form action="/users/login" method="post">
@@ -38,5 +46,10 @@
 			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
 		</div>
 	</footer>
+	<script type="text/javascript">
+		window.setTimeout(() => {
+			document.querySelector('.msg-box').innerHTML = ''
+		},2000)
+	</script>					
 </body>
 </html>

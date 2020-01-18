@@ -85,7 +85,8 @@ router.get('/:id/view', (req,res) => {
 		})		
 	})
 });
-	
+
+// Add Cloth 
 router.post('/', upload.array('photos',3), middleware.isloggedin , middleware.checkisAdmin, (req,res,next) => {
 	const photos = req.files;
 	console.log(req.files);	
@@ -128,19 +129,29 @@ router.post('/', upload.array('photos',3), middleware.isloggedin , middleware.ch
 					openUrl: 'https://herbeifashion.herokuapp.com/clothes/id/view'
 				}))
 			})
+			req.flash('success_msg', `Cloth was successfully Added`)								
 			res.redirect('/clothes/add');							
 			}else{
+				req.flash('success_msg', `Cloth was successfully Added`)												
 				res.redirect('/clothes/add');										
 			}		
 		})
-		.catch((err) => console.log)					
+		.catch((err) => {
+			req.flash('error_msg', `An Error Occurred`)								
+			res.redirect('/clothes/add');							
+		})					
 	})
-	.catch((err) => console.log)					
+	.catch((err) => {
+		req.flash('success_msg', `Cloth was successfully Added`)								
+		res.redirect('/clothes/add');							
+	})					
 })
 
+// Delete Cloth
 router.delete('/:id',  middleware.isloggedin , middleware.checkisAdmin ,(req,res) => {
 	db.Cloth.remove({_id: req.params.id})
 	.then(() => {
+		req.flash('success_msg', `Cloth was Successfully Deleted`)										
 		res.redirect('/clothes')
 	})
 })

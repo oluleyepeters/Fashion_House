@@ -57,7 +57,7 @@ const renderButtons = (page, numResults, resPerPage) => {
 		document.querySelector('#button-container').innerHTML = button;			
     }
 };
-
+ 
 const renderClothes = (clothes, page = 1, resPerPage = 10) => {
 	document.querySelector('#button-container').innerHTML = '';											
 	document.querySelector('#clothes-container').innerHTML = '';	

@@ -17,8 +17,8 @@ const renderItems = (user) => {
 	 					<img src=${item.front_view} class="p1" alt="info">
 	 				</div>
 	 				<div class="category-left cart-box">
-	 					<p class="category">${item.category}</p>	
-	 					<p class="category">${item.price}</p>		
+	 					<p class="category">${item.name}</p>	
+	 					<p class="category">#${item.price}</p>		
 	 				</div>				
 	 			</article>
 	 			<input type="text" class="hidden" name="items[${index}][name]" value= ${item.category} >
@@ -30,20 +30,24 @@ const renderItems = (user) => {
 		`
 	})
 
-	var totalPrice = user.cart.items.reduce((currentTotal, item) => {
-						currentTotal + item.price },0); 
-	totalPrice = `#`+{totalPrice}
+	let totalPrice = user.cart.items.reduce((currentTotal, item) => {
+						return currentTotal + parseInt(item.price) },0); 
+	totalPrice = `#`+ totalPrice
+	console.log(totalPrice)
 
 	var cartHeader = `
 			<div class="cart-header">
 	 			<h4 class="text-center">My Cart</h4>
 	 			<div  class="close"><span>&times;</span></div>
 	 		</div>`
-	var proceedButton = `
+	var proceedButton =  user.cart.items.length >= 1 ? `
 			<div class="payment-proceed">
-				<button type="submit" class="category">Place Order</button>	
+				<button type="submit" class="category">Order</button>	
 				<p class="category">${totalPrice}</p>
-			</div>`
+			</div>` : 
+			`<div class="payment-proceed">
+				<p class="center">You Have no item in Your Cart</p>
+			</div>` 
 	cartHeader += clothes
 	cartHeader += proceedButton
 	return cartHeader;
@@ -51,19 +55,21 @@ const renderItems = (user) => {
 
 cartBtn.addEventListener('click', e => {
 	console.log(userId)
-	var url = `http://herbeifashion.herokuapp.com/users/getUser/${userId}`
+	var url = `https://herbeifashion.herokuapp.com/users/getUser/${userId}`
 	fetch(url)
 	.then(res => {
 		return res.json()
-		console.log(res.json())
 	})
 	.then( user => {
-		if(user.cart.length < 1){
+		console.log(user.cart.items.length)
+		if(user.cart.length === 0){
 			emptyCart.innerHTML = 
 				`<div class="cart-header">
 					<h3 class="text-center">My Cart</h3>
 					<div class="close"><span>&times;</span></div>
-				</div>`			
+				</div>
+				<p class="center">Your cart is empty</p>`
+
 		}else{
 			filledCart.innerHTML =  renderItems(user);
 		}

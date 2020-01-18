@@ -48,8 +48,8 @@ router.post('/register',(req,res) => {
 		db.User.findOne({email:req.body.email})
 			.then(user => {
 				if(user){
-					req.flash('error_msg', 'The email is already registerd');
-					res.redirect('/users/register')
+					req.flash('error_msg', 'The email is already registered');
+					res.redirect('/users/login')
 				}else{
 					const newUser = new db.User({
 					firstName: req.body.firstName,
@@ -69,7 +69,7 @@ router.post('/register',(req,res) => {
 							res.redirect('/users/login')
 						})
 						.catch(err => {
-							req.flash('error_msg', 'You are now registered and can now login');
+							req.flash('error_msg', 'An error occurred');
 							res.redirect('/users/login')
 						})
 					})
@@ -141,12 +141,15 @@ router.post('/:id/order',(req,res) => {
 					.then(order => {
 						user.cart.items = [];
 						user.save();
-						res.redirect(`/`)
+						req.flash('success_msg', `Order was created with a tracking id of ${order._id}`)
+						res.redirect(`back`)
 					})
 				})
 			}
 		})
-	.catch(console.log)
+	.catch( err => {
+		req.flash('error_msg', `An error occurred you can try again later`)
+		res.redirect(`back`)		
 });
 
 router.get('/myOrders', middleware.isloggedin ,(req,res) => {

@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie-edge">
 	<meta name="keywords" content="">
-	<meta name="description" content="">
+	<meta name="description" content="">	
 	<link rel="stylesheet" href="/css/login.css">
 	<title>Herbei | Register</title>
 </head>
@@ -17,6 +17,14 @@
 			<li><a href="/users/login">Login</a></li>
 		</ul>
 	</nav>
+	<!-- Showing erro or success messages -->
+	<div class="container">
+		<% if(error && error.length > 0) {%>
+			<div class="mt-1 alert alert-danger center" role="alert"><strong><%=error%></strong></div>
+		<% }else if(success && success.length > 0) {%>
+			<div class="mt-1 alert alert-success center" role="alert"><strong><%=success%></strong></div>
+		<% } %>
+	</div>		
 	<main>
 		<div class="container">
 			<form action="/users/register" method="post">

@@ -15,8 +15,7 @@
 <body>
 	<nav class="nav">
 	<div>
-		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		
+		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>	
 	</div>
 		<div>
 			<% if(!user){ %>
@@ -32,7 +31,7 @@
 				<li><a href="#" class="id hidden"><%=user._id %></a></li>				
 				<li><a href="/orders/allorders">All Orders</a></li>
 				<li><a href="/users/myOrders">Orders</a></li>
-				<li><a href="/clothes/add">Add Clothes</a></li>						
+				<li><a href="/clothes/add"><i class="fa fa-plus"></i></a></li>						
 				<li><a href="#" class="cart-btn"><i class="fa fa-shopping-cart"></i></a></li>		
 			<% } %>					
 		</div>
@@ -43,6 +42,14 @@
 			<% } %>
 		</div>		
 	</nav>
+	<!-- Showing erro or success messages -->
+	<div class="container msg-box">
+		<% if(error && error.length > 0) {%>
+			<div class="mt-1 alert alert-danger text-center" role="alert"><strong><%=error%></strong></div>
+		<% }else if(success && success.length > 0) {%>
+			<div class="mt-1 alert alert-success text-center" role="alert"><strong><%=success%></strong></div>
+		<% } %>
+	</div>		
 	<main>
 		<div class="container" style="margin-top:1rem;">
 		  <form>
@@ -116,7 +123,12 @@
 		<script src="/javascript/utility.js"></script>			
 		<script src="/javascript/jquery-3.3.1.min.js"></script>
 		<script src="/javascript/loadClothes.js"></script>	
-	<% } %>						
+	<% } %>		
+	<script type="text/javascript">
+		window.setTimeout(() => {
+			document.querySelector('.msg-box').innerHTML = ''
+		},2000)
+	</script>									
 		<script src="/javascript/bootstrap.js"></script>	
 </body>
 </html>

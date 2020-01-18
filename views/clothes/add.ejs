@@ -31,7 +31,13 @@
 			<% } %>
 		</div>		
 	</nav>
-
+	<div class="container msg-box">
+		<% if(error && error.length > 0) {%>
+			<div class="mt-1 alert alert-danger text-center" role="alert"><strong><%=error%></strong></div>
+		<% }else if(success && success.length > 0) {%>
+			<div class="mt-1 alert alert-success text-center" role="alert"><strong><%=success%></strong></div>
+		<% } %>
+	</div>
 	<main>
 		<div class="container">
 		</div>
@@ -75,6 +81,11 @@
 			<p>Copyright &copy; 2019, Herbei_Fashion, All Rights Reserved</p>
 		</div>
 	</footer>
-<!--	<script src="/javascript/AddCloth.js"></script>-->
+	<script src="/javascript/app.js"></script>
+	<script type="text/javascript">
+		window.setTimeout(() => {
+			document.querySelector('.msg-box').innerHTML = ''
+		},2000)
+	</script>					
 </body>
 </html>
