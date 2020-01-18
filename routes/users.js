@@ -150,6 +150,7 @@ router.post('/:id/order',(req,res) => {
 	.catch( err => {
 		req.flash('error_msg', `An error occurred you can try again later`)
 		res.redirect(`back`)		
+	})	
 });
 
 router.get('/myOrders', middleware.isloggedin ,(req,res) => {
