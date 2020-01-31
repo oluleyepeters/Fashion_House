@@ -25,9 +25,9 @@ const renderClothe = cloth => {
 };
 
 const createButton = (page, type) => `
-    <div class="category btn-inline" data-goto=${type === 'prev' ? page - 1 : page + 1}>
-        <a>Page ${type === 'prev' ? page - 1 : page + 1}</a>
-    </div>
+    <a style="color: white;" class="category btn-inline" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+Page ${type === 'prev' ? page - 1 : page + 1}
+    </a>
 `;
 
 const renderButtons = (page, numResults, resPerPage) => {
