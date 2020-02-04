@@ -71,7 +71,6 @@ app.use(function(req,res,next){
 const users = require('./routes/users');
 const clothes = require('./routes/clothes');
 const orders = require('./routes/orders');
-//const admin = require('./routes/admin');
 
 app.get('/', (req, res)=>{
 	res.render('index')
