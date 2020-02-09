@@ -1,8 +1,8 @@
 importScripts('/javascript/idb.js');
 importScripts('/javascript/utility.js')
 
-const pwaCache = 'pwa_Cache-2';
-const dynamicCache = 'pwa_Dynamic_cache-2';
+const pwaCache = 'pwa_Cache-1';
+const dynamicCache = 'pwa_Dynamic_cache-1';
 const staticFiles=[
 				'/',
 				'/offline',
