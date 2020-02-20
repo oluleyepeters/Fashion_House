@@ -1,7 +1,7 @@
-:root {
+/*:root {
 	--primary-color: #93cb52;
 	--secondary-color: #f99500;
-}
+}*/
 
 *{
 	margin: 0;
@@ -9,9 +9,9 @@
 	box-sizing: border-box;
 }
 
-
 body{
 	background-color: #fff;
+	/*padding: 1rem;*/
 /*	position: relative;*/
 	/*overflow-x: hidden;*/
 /*	min-height: 100%;	*/
@@ -43,22 +43,41 @@ body{
 	color: white;
 }
 
-/*.justify-center{justify-content: center}s*/
+.image{
+    width:45px;
+    height:45px;
+    display:inline-block;
+    border-radius: 50%;
+}
+
+main{
+	position: relative;
+	min-height: 100vh;
+	margin-bottom: 2rem;
+}
 
 .container{
 	max-width: 1100px;
 	margin:  auto;
 /*	height: 100%;*/ 
-	padding: 0 2rem;
+	/*padding: 0 2rem;*/
 	overflow: hidden
+}
+
+.check-container{
+	/*max-width: 1100px;*/
+	margin:  1rem 2rem;
+/*	height: 100%;*/ 
+	/*padding: 0 2rem;*/
+	/*overflow: */
 }
 
 .conditions-container{
 	max-width: 1000px;
-	margin:  auto;
+	/*margin:  auto;*/
 /*	display: grid;*/
 /*	grid-template-columns: repeat(2, 1fr);	*/
-	padding: 0 2rem;
+	/*padding: 0 2rem;*/
 }
 
 .m1{
@@ -72,12 +91,6 @@ body{
 .blur{
   -webkit-filter: blur(10px);
   filter: blur(10px);
-}
-
-main{
-/*	position: relative;*/
-	min-height: 100vh;
-	margin-bottom: 2rem;
 }
 
 .category-box input{
@@ -128,12 +141,25 @@ nav{
 	top: 0;
 	background-color: #333;
 	color: white;
-	padding: 1.2rem;
+    height: 60px;
+	padding-top: 1.0rem;
+	padding-bottom: 1.0rem;    
 	padding-left: 0.6rem;
-	padding-right: 0.6rem;
+/*	padding-right: 0.6rem;*/
 	display: flex;
+    flex-direction: row;
+    width: 100%;
 	justify-content: space-between;
 	z-index: 1;
+}
+
+nav div{
+	display: flex;
+	height: 100%;
+}
+
+nav div li{
+    /*align-self: center;*/
 }
 
 nav li a{
@@ -141,19 +167,7 @@ nav li a{
 	text-decoration: none;
 	color: white;
 }
-
-a:hover{
-	cursor: pointer;
-}
-
-nav div{
-	display: flex;
-	height: 100%;
-	width: auto;
-/*	vertical-align: center;*/
-/*	align-self: center;*/
- }
-
+ 
 nav > div:first-child li{
 	margin-left: 1rem
 }
@@ -166,12 +180,20 @@ nav > div:last-child li{
 nav div li{
 	list-style: none;
 	align-self: center;	
-	margin: 0 0.4rem;
+	margin: 0 0.1rem;
 }
 
 nav div li a{
-	text-decoration-line: none;
-	color: #fff
+	text-decoration: none;
+	color: #fff;
+}
+
+nav .hover_ li a:hover{
+	text-decoration: none;
+	color: white;
+    background-color: cornflowerblue;
+    padding: 0.2rem 0.8rem;
+    border-radius: 5px;
 }
 
 .cloth-name{
@@ -316,23 +338,38 @@ nav div li a{
 /*		grid-gap: 1rem;*/
 	}
 	
-	nav{
+	nav div{
 		display: flex;
-		flex-direction: column;
+		height: 100%;
 	}
-	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
+
+	nav div li{
+    	/*align-self: center;*/
 	}
-	
-	nav > div:last-child{
-		text-align: center;
-		/*margin-top: 0.5rem;*/
-	}		
-	
-	nav > div{ 
-		margin: auto;
+
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
 	}
 		
 	#all-clothes{
@@ -370,6 +407,7 @@ nav div li a{
 }
 
 
+
 @media (max-width: 768px){	
 	#all-clothes #clothes-container{
 		display: grid;
@@ -377,23 +415,38 @@ nav div li a{
 		grid-gap: 1.5rem;
 	}
 	
-	nav{
+	nav div{
 		display: flex;
-		flex-direction: column;
+		height: 100%;
 	}
-	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
+
+	nav div li{
+    	/*align-self: center;*/
 	}
-	
-	nav > div:last-child{
-		text-align: center;
-		/*margin-top: 0.5rem;*/
-	}		
-	
-	nav > div{
-		margin: auto;
+
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
 	}
 		
 	#all-clothes{
@@ -437,27 +490,65 @@ nav div li a{
 	}
 
 	.fieldset-box{
-		display: flex;
+		display: flex; 
 		flex-direction: column;
 	}
 	
+	nav div{
+		display: flex;
+		height: 100%;
+	}
+
 	nav{
+		/*padding: 1.2rem;*/
+		height: 80px;
+	}
+
+	.nav_{
+		height: 100%;
+	}
+
+	nav div .nav_{
 		display: flex;
 		flex-direction: column;
 	}
-	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
+
+	.nav_ div{
+		height: 20px;
+		margin-bottom: 7px;
+		display: flex;
+		justify-content: flex-end;
+		/*padding: 0.5rem;*/
+		/*margin-bottom:2%; */
 	}
-	
-	nav > div:last-child{
-		text-align: center;
-		/*margin-top: 0.5rem;*/
-	}		
-	
-	nav >div{
-		margin: auto;
+
+	.nav_ div:first-child{
+		margin-top: 0; 
+	}	
+
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
 	}
 	
 	footer p{
@@ -503,23 +594,61 @@ nav div li a{
 /*		grid-gap: 1rem;*/
 	}
 	
+	nav div{
+		display: flex;
+		height: 100%;
+	}
+
 	nav{
+		/*padding: 1.2rem;*/
+		height: 80px;
+	}
+
+	.nav_{
+		height: 100%;
+	}
+
+	nav div .nav_{
 		display: flex;
 		flex-direction: column;
 	}
-	
-	nav > li{
-		text-align: center;
-		margin-bottom: 0.5rem;
+
+	.nav_ div{
+		height: 20px;
+		margin-bottom: 7px;
+		display: flex;
+		justify-content: flex-end;
+		/*padding: 0.5rem;*/
+		/*margin-bottom:2%; */
 	}
-	
-	nav > div:last-child{
-		text-align: center;
-		/*margin-top: 0.5rem;*/
-	}		
-	
-	nav > div{
-		margin: auto;
+
+	.nav_ div:first-child{
+		margin-top: 0; 
+	}	
+
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
 	}
 	
 	footer p{

@@ -9,7 +9,6 @@
 	box-sizing: border-box;
 }
 
-
 body{
 	background-color: #f4f4f4
 }
@@ -82,18 +81,38 @@ input{
 	display: none;
 }
 
+.image{
+    width:45px;
+    height:45px;
+    display:inline-block;
+    border-radius: 50%;
+}
+
 /*Navbar*/
 nav{
 	position: sticky;
 	top: 0;
 	background-color: #333;
 	color: white;
-	padding: 1.2rem;
+    height: 60px;
+	padding-top: 1.0rem;
+	padding-bottom: 1.0rem;    
 	padding-left: 0.6rem;
-	padding-right: 0.6rem;
+/*	padding-right: 0.6rem;*/
 	display: flex;
+    flex-direction: row;
+    width: 100%;
 	justify-content: space-between;
 	z-index: 1;
+}
+
+nav div{
+	display: flex;
+	height: 100%;
+}
+
+nav div li{
+    /*align-self: center;*/
 }
 
 nav li a{
@@ -102,14 +121,6 @@ nav li a{
 	color: white;
 }
  
-nav div{
-	display: flex;
-	height: 100%;
-	width: auto;
-/*	vertical-align: center;*/
-/*	align-self: center;*/
-}
-
 nav > div:first-child li{
 	margin-left: 1rem
 }
@@ -122,14 +133,21 @@ nav > div:last-child li{
 nav div li{
 	list-style: none;
 	align-self: center;	
-	margin: 0 0.4rem;
+	margin: 0 0.1rem;
 }
 
 nav div li a{
-	text-decoration-line: none;
-	color: #fff
+	text-decoration: none;
+	color: #fff;
 }
 
+nav .hover_ li a:hover{
+	text-decoration: none;
+	color: white;
+    background-color: cornflowerblue;
+    padding: 0.2rem 0.8rem;
+    border-radius: 5px;
+}
 
 main{
 	background: #f4f4f4
@@ -284,24 +302,39 @@ main{
 }
 
 @media (max-width: 1200px){	
-	nav{
+	nav div{
 		display: flex;
-		flex-direction: column;
+		height: 100%;
 	}
-	
-	nav > div{
-		display: flex;
-		justify-content: center;
-	}
-	
-	nav > div:last-child{
-		text-align: center;
-		margin-bottom: 0.2rem;
-	}	
 
-	nav > div{ 
-		margin: auto;
-	}	
+	nav div li{
+    	/*align-self: center;*/
+	}
+
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
+	}
 	
 	footer p{
 		text-align: center;
@@ -338,6 +371,7 @@ main{
 		bottom: 0;
 		opacity: 0;
 		max-width: 300px;
+/*/	*	margin-top: 20px;*/*/
 		margin: 600px auto;
 		display: flex;
 		flex-direction: column;
@@ -351,25 +385,40 @@ main{
 
 
 @media (max-width: 768px){	
-	nav{
+	nav div{
 		display: flex;
-		flex-direction: column;
+		height: 100%;
 	}
-	
-	nav > div{
-		display: flex;
-		justify-content: center;
-	}
-	
-	nav > div:last-child{
-		text-align: center;
-		margin-bottom: 0.2rem;
-	}	
 
-	nav > div{ 
-		margin: auto;
+	nav div li{
+    	/*align-self: center;*/
 	}
-		
+
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
+	}
+
 	.container{
 		max-width: 400px;
 		margin:  auto;
@@ -399,6 +448,7 @@ main{
 		bottom: 0;
 		opacity: 0;
 		max-width: 300px;
+/*/	*	margin-top: 20px;*/*/
 		margin: 600px auto;
 		display: flex;
 		flex-direction: column;
@@ -430,27 +480,61 @@ main{
 		text-decoration: none;
 	}
 
+	nav div{
+		display: flex;
+		height: 100%;
+	}
+
 	nav{
+		/*padding: 1.2rem;*/
+		height: 80px;
+	}
+
+	.nav_{
+		height: 100%;
+	}
+
+	nav div .nav_{
 		display: flex;
 		flex-direction: column;
 	}
-	
-	nav > div{
+
+	.nav_ div{
+		height: 20px;
+		margin-bottom: 7px;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-end;
+		/*padding: 0.5rem;*/
+		/*margin-bottom:2%; */
 	}
-	
-	nav > div:last-child{
-		text-align: center;
-		margin-bottom: 0.2rem;
+
+	.nav_ div:first-child{
+		margin-top: 0; 
 	}	
 
-	nav > div{ 
-		margin: auto;
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
 	}
-	
-	footer p{
-		text-align: center;
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
 	}
 		
 	.container{
@@ -476,6 +560,7 @@ main{
 		bottom: 0;
 		opacity: 0;
 		max-width: 300px;
+/*/	*	margin-top: 20px;*/*/
 		margin: 600px auto;
 		display: flex;
 		flex-direction: column;
@@ -507,25 +592,63 @@ main{
 		text-decoration: none;
 	}
 	
+	nav div{
+		display: flex;
+		height: 100%;
+	}
+
 	nav{
+		/*padding: 1.2rem;*/
+		height: 80px;
+	}
+
+	.nav_{
+		height: 100%;
+	}
+
+	nav div .nav_{
 		display: flex;
 		flex-direction: column;
 	}
-	
-	nav > div{
+
+	.nav_ div{
+		height: 20px;
+		margin-bottom: 7px;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-end;
+		/*padding: 0.5rem;*/
+		/*margin-bottom:2%; */
 	}
-	
-	nav > div:last-child{
-		text-align: center;
-		margin-bottom: 0.2rem;
+
+	.nav_ div:first-child{
+		margin-top: 0; 
 	}	
 
-	nav > div{ 
-		margin: auto;
-	}	
-	
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
+	}
+
 	footer p{
 		text-align: center;
 	}
@@ -546,6 +669,7 @@ main{
 		bottom: 0;
 		opacity: 0;
 		max-width: 300px;
+/*/	*	margin-top: 20px;*/*/
 		margin: 600px auto;
 		display: flex;
 		flex-direction: column;

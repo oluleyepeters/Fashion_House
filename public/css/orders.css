@@ -115,6 +115,13 @@ a{
 	border-radius: 5px;
 }
 
+.image{
+    width:45px;
+    height:45px;
+    display:inline-block;
+    border-radius: 50%;
+}
+
 /*Navbar*/
 nav{
 	position: sticky;
@@ -432,23 +439,63 @@ nav div li a{
 		grid-gap: 1rem;
 	}
 	
+	nav div{
+		display: flex;
+		height: 100%;
+	}
+
 	nav{
+		/*padding: 1.2rem;*/
+		height: 80px;
+	}
+
+	.nav_{
+		height: 100%;
+	}
+
+	nav div .nav_{
 		display: flex;
 		flex-direction: column;
 	}
-	
-	
-	nav > div:last-child{
-		text-align: center;
-		margin-bottom: 0.2rem;
-	}		
-	
-	nav > div{ 
+
+	.nav_ div{
+		height: 20px;
+		margin-bottom: 7px;
 		display: flex;
-		justify-content: center;
-		margin: auto;
+		justify-content: flex-end;
+		/*padding: 0.5rem;*/
+		/*margin-bottom:2%; */
 	}
-	
+
+	.nav_ div:first-child{
+		margin-top: 0; 
+	}	
+
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
+	}
+
 	footer p{
 		text-align: center;
 	}
@@ -493,23 +540,62 @@ nav div li a{
 /*		grid-gap: 1rem;*/
 	}
 	
+	nav div{
+		display: flex;
+		height: 100%;
+	}
+
 	nav{
+		/*padding: 1.2rem;*/
+		height: 80px;
+	}
+
+	.nav_{
+		height: 100%;
+	}
+
+	nav div .nav_{
 		display: flex;
 		flex-direction: column;
 	}
-	
-	
-	nav > div:last-child{
-		text-align: center;
-		margin-bottom: 0.2rem;
-	}		
-	
-	nav > div{ 
+
+	.nav_ div{
+		height: 20px;
+		margin-bottom: 7px;
 		display: flex;
-		justify-content: center;
-		margin: auto;
+		justify-content: flex-end;
+		/*padding: 0.5rem;*/
+		/*margin-bottom:2%; */
 	}
-	
+
+	.nav_ div:first-child{
+		margin-top: 0; 
+	}	
+
+	nav li a{
+		list-style: none;
+		text-decoration: none;
+		color: white;
+	}
+ 
+	nav > div:first-child li{
+		margin-left: 1rem
+	}
+
+	nav > div:last-child li{
+		margin-right: 1rem
+	}
+
+	nav div li{
+		list-style: none;
+		align-self: center;	
+		margin: 0 0.1rem;
+	}
+
+	nav div li a{
+		text-decoration: none;
+		color: #fff;
+	}	
 	footer p{
 		text-align: center;
 	}

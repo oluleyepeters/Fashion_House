@@ -13,24 +13,26 @@
 <body>
 	<nav class="nav">
 	<div>
-		<li><a href="/"><span class="text-primary">HERBEI</span> FASHION</a></li>
-		
+		<li><a href="/"><img class="image" src="/images/icons/icon-512x512.png" /></a></li>
 	</div>
-		<div>
+        <div>
 			<% if(!user){ %>
-				<li class="action-gray"><a href="/users/login">Login</a></li>
-				<li class="action-red"><a href="/users/register">Register</a></li>
-			<% } else {%>
-				<li><a href="#"><%=user.userName %></a></li>
-				<li><a href="/orders/allOrders">All Orders</a></li>
-				<li><a href="/clothes/add">Add Cloth</a></li>	
+				<div class="hover_">
+					<li class="action-gray"><a href="/users/login">Login</a></li>
+					<li class="action-red"><a href="/users/register">Register</a></li>
+				</div>	
+			<%} else if(user.type === "Admin"){%>
+				<div class="nav_">
+					<div class="hover_ nav_one">
+						<li><a href="#"><%=user.userName %></a></li>
+						<li><a href="/clothes">Clothes</a></li>			</div>
+					<div class="hover_ nav_two">
+						<li><a href="/clothes/add">Add Clothes</a></li>		
+						<li> <a href="/users/logout">Logout</a></li>
+					</div>	
+				</div>            
 			<% } %>					
 		</div>
-		<div>
-			<% if(user){ %>
-				<li> <a href="/users/logout">Logout</a></li>
-			<% } %>
-		</div>		
 	</nav>
 	<main> 
 		<section id="all-clothes">
